@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import {
   useCancelSubscriptionMutation,
   useRenewAutoRenewalMutation,
@@ -14,6 +14,8 @@ export const CancelSubscription = ({ hasAutoRenewal }: PropsType) => {
 
   const [cancelSubscription] = useCancelSubscriptionMutation()
   const [renewAutoSubscription] = useRenewAutoRenewalMutation()
+
+  const agreementId = useId()
 
   const handleToggleRenewal = async (checked: boolean) => {
     try {
@@ -34,7 +36,7 @@ export const CancelSubscription = ({ hasAutoRenewal }: PropsType) => {
       <Checkbox
         checked={renewal}
         onCheckedChange={checked => handleToggleRenewal(checked as boolean)}
-        id={'agreement'}
+        id={agreementId}
         label={'Auto-Renewal'}
       />
     </div>

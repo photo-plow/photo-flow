@@ -1,7 +1,7 @@
 import { Checkbox } from '@/components/ui/checkbox/Checkbox'
 import { Button } from '@/components/ui/button/Button'
 import { Typography } from '@/components/ui/typography/Typography'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { parseSubscription } from '@/lib/feature/subscriptions/utils/parseSubscription'
 import { useCreatePaymentMutation } from '@/lib/feature/subscriptions/api/subscriptionApi'
 import { useParams, useRouter } from 'next/navigation'
@@ -12,6 +12,8 @@ export const Agreement = ({ subscriptionCost }: { subscriptionCost: string }) =>
   const [createPayment, { isLoading }] = useCreatePaymentMutation()
   const router = useRouter()
   const params = useParams()
+
+  const agreementId = useId()
 
   const paymentHandler = async () => {
     const { price, type } = parseSubscription(subscriptionCost)
@@ -34,7 +36,7 @@ export const Agreement = ({ subscriptionCost }: { subscriptionCost: string }) =>
       <Checkbox
         checked={agree}
         onCheckedChange={() => setAgree(prev => !prev)}
-        id={'agreement'}
+        id={agreementId}
         label={'I agree'}
       />
       <Button disabled={!agree || isLoading} onClick={paymentHandler}>
