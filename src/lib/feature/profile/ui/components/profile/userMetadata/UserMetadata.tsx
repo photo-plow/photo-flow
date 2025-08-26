@@ -1,6 +1,6 @@
 'use client'
 
-import { Typography } from '@/components/ui/typography/Typography'
+import { Typography } from 'photo-flow-ui-kit'
 
 type Props = {
   title: string

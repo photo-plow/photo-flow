@@ -1,5 +1,5 @@
-import { Textarea } from '@/components/ui/textarea/Textarea'
-import { Button } from '@/components/ui/button/Button'
+import { Textarea } from 'photo-flow-ui-kit'
+import { Button } from 'photo-flow-ui-kit'
 import { useUpdatePostMutation } from '../../../api/postsApi'
 import { UpdatePostMutation } from '../../../api/postsApi.types'
 import { twMerge } from 'tailwind-merge'

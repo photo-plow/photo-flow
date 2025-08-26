@@ -4,7 +4,7 @@ const Skeleton = ({ className }: { className: string }) => (
 
 export default function ProfileLoading() {
   return (
-    <div className='m-auto w-[1060px] pt-[36px]'>
+    <div className='m-auto w-[1060px]'>
       <div className='flex gap-[38px] pr-[64px]'>
         <div>
           <Skeleton className='h-[204px] w-[204px] rounded-[50%]' />

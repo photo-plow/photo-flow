@@ -1,12 +1,12 @@
 'use client'
-import { Typography } from '@/components/ui/typography/Typography'
-import { Button } from '@/components/ui/button/Button'
+import { Typography } from 'photo-flow-ui-kit'
+import { Button } from 'photo-flow-ui-kit'
 import Link from 'next/link'
 import Image from 'next/image'
 
 export default function Page() {
   return (
-    <div className={'mt-9 flex h-full w-full flex-col items-center'}>
+    <div className={'flex h-full w-full flex-col items-center'}>
       <Typography className={'mb-5'} variant={'h1'}>
         Congratulations!
       </Typography>

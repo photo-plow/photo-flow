@@ -1,26 +1,39 @@
 'use client'
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs/Tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from 'photo-flow-ui-kit'
 import { GeneralInformation } from '@/lib/feature/profile/ui/components/profile/GeneralInformation/GeneralInformation'
 import { AccountType } from '@/lib/feature/subscriptions/ui/AccountType/AccountType'
-import { ModalWindow } from '@/components/ui/modalWindow/ModalWindow'
-import { Typography } from '@/components/ui/typography/Typography'
-import { Button } from '@/components/ui/button/Button'
-import { useSearchParams } from 'next/navigation'
+import { ModalWindow } from 'photo-flow-ui-kit'
+import { Typography } from 'photo-flow-ui-kit'
+import { Button } from 'photo-flow-ui-kit'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
+import { useGetMeQuery } from '@/lib/feature/auth/api/authApi'
+import { Loader } from 'photo-flow-ui-kit'
+import { MyPayments } from '@/lib/feature/subscriptions/ui/myPayments/MyPayments'
 
 const ProfileSettings = () => {
+  const router = useRouter()
+  const profileParams = useParams()
   const params = useSearchParams()
   const success = params.get('success')
   const [isModalOpen, setIsModalOpen] = useState(!!success)
+  const { data } = useGetMeQuery()
+
+  if (!data) return <Loader />
+
+  if (String(profileParams.id) !== String(data.userId)) {
+    router.replace(`/profile/${profileParams.id}`)
+    return null
+  }
 
   const onCloseModalWindow = () => {
     setIsModalOpen(false)
+    return null
   }
 
   return (
-    <div className='mb-[26px] pt-9'>
-      {/*Поменять на семантические теги*/}
+    <div className='mb-[26px]'>
       <Tabs defaultValue='General information'>
         <TabsList className='flex w-full'>
           <TabsTrigger value='General information' className='flex-1'>
@@ -43,7 +56,9 @@ const ProfileSettings = () => {
         <TabsContent value='Account Management'>
           <AccountType />
         </TabsContent>
-        <TabsContent value='My payments'>My payments</TabsContent>
+        <TabsContent value='My payments'>
+          <MyPayments />
+        </TabsContent>
       </Tabs>
       {success === 'true' ? (
         <ModalWindow

@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Typography } from '@/components/ui/typography/Typography'
+import { Typography } from 'photo-flow-ui-kit'
 
 type PropsType = {
   text: string
@@ -17,7 +17,7 @@ export default function ExpandableText({ text, maxLength = 72, className }: Prop
     <div>
       <Typography
         variant={'regular_text_14'}
-        className={twMerge(className, 'inline whitespace-pre-wrap')}
+        className={twMerge(className, 'whitespace-pre-wrap, inline break-all')}
       >
         {displayText}
         {isLong && !expanded && '... '}

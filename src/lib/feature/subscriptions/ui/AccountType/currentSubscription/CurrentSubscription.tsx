@@ -1,9 +1,9 @@
-import { Typography } from '@/components/ui/typography/Typography'
-import { Card } from '@/components/ui/Card/Card'
-import { Checkbox } from '@/components/ui/checkbox/Checkbox'
+import { Typography } from 'photo-flow-ui-kit'
+import { Card } from 'photo-flow-ui-kit'
 import { formatDateToDotFormat } from '@/utils'
 import { getCurrentSubscriptionResponse } from '@/lib/feature/subscriptions/api/subscriptionApi.types'
 import { memo } from 'react'
+import { CancelSubscription } from '@/lib/feature/subscriptions/ui/AccountType/cancelSubscription/cancelSubscription'
 
 type PropsType = {
   currentSubscriptions: getCurrentSubscriptionResponse | undefined
@@ -51,12 +51,7 @@ export const CurrentSubscription = memo(({ currentSubscriptions }: PropsType) =>
           </tbody>
         </table>
       </Card>
-      <Checkbox
-        className={'mb-6'}
-        label={'Auto-Renewal'}
-        id={'Auto-Renewal'}
-        checked={currentSubscriptions?.hasAutoRenewal}
-      />
+      <CancelSubscription hasAutoRenewal={currentSubscriptions?.hasAutoRenewal} />
     </>
   )
 })

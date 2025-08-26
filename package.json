@@ -28,6 +28,7 @@
     "date-fns": "^4.1.0",
     "eslint-plugin-storybook": "9.0.4",
     "next": "15.3.3",
+    "photo-flow-ui-kit": "^1.0.19",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-google-recaptcha": "^3.1.0",

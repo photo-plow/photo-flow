@@ -1,12 +1,12 @@
 'use client'
-import { Typography } from '@/components/ui/typography/Typography'
+import { Typography } from 'photo-flow-ui-kit'
 import Image from 'next/image'
-import { Input } from '@/components/ui/input/Input'
-import { Button } from '@/components/ui/button/Button'
+import { Input } from 'photo-flow-ui-kit'
+import { Button } from 'photo-flow-ui-kit'
 import { useResendEmailMutation } from '@/lib/feature/auth/api/authApi'
 import React, { useState } from 'react'
 import { ResponseError } from '@/lib/feature/auth/api/authApi.types'
-import { ModalWindow } from '@/components/ui/modalWindow/ModalWindow'
+import { ModalWindow } from 'photo-flow-ui-kit'
 
 export default function Page() {
   const [email, setEmail] = useState<string>('')

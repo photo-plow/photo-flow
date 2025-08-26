@@ -1,16 +1,17 @@
-import { Checkbox } from '@/components/ui/checkbox/Checkbox'
-import { Button } from '@/components/ui/button/Button'
-import { Typography } from '@/components/ui/typography/Typography'
+import { Checkbox } from 'photo-flow-ui-kit'
+import { Button } from 'photo-flow-ui-kit'
+import { Typography } from 'photo-flow-ui-kit'
 import { useState } from 'react'
 import { parseSubscription } from '@/lib/feature/subscriptions/utils/parseSubscription'
 import { useCreatePaymentMutation } from '@/lib/feature/subscriptions/api/subscriptionApi'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 export const Agreement = ({ subscriptionCost }: { subscriptionCost: string }) => {
   const [agree, setAgree] = useState(false)
 
   const [createPayment, { isLoading }] = useCreatePaymentMutation()
   const router = useRouter()
+  const params = useParams()
 
   const paymentHandler = async () => {
     const { price, type } = parseSubscription(subscriptionCost)
@@ -20,7 +21,7 @@ export const Agreement = ({ subscriptionCost }: { subscriptionCost: string }) =>
         typeSubscription: type,
         paymentType: 'STRIPE',
         amount: price,
-        baseUrl: window.location.origin + '/test',
+        baseUrl: window.location.origin + `/profile/${params.id}/ProfileSettings`,
       })
       router.push(res.data!.url)
     } catch (err) {

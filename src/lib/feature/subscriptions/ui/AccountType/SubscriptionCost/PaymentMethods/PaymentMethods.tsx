@@ -1,9 +1,9 @@
-import { Card } from '@/components/ui/Card/Card'
+import { Card } from 'photo-flow-ui-kit'
 import PaypalIcon from '@/assets/icons/paypal.svg'
-import { Typography } from '@/components/ui/typography/Typography'
+import { Typography } from 'photo-flow-ui-kit'
 import StripeIcon from '@/assets/icons/stripe.svg'
 import { Agreement } from '@/lib/feature/subscriptions/ui/AccountType/SubscriptionCost/PaymentMethods/Agreement/Agreement'
-import { ModalWindow } from '@/components/ui/modalWindow/ModalWindow'
+import { ModalWindow } from 'photo-flow-ui-kit'
 import { useState } from 'react'
 
 export const PaymentMethods = ({ subscriptionCost }: { subscriptionCost: string }) => {

@@ -1,17 +1,17 @@
 'use client'
 
-import { Card } from '@/components/ui/Card/Card'
-import { Typography } from '@/components/ui/typography/Typography'
-import { Input } from '@/components/ui/input/Input'
-import { Checkbox } from '@/components/ui/checkbox/Checkbox'
-import { Button } from '@/components/ui/button/Button'
+import { Card } from 'photo-flow-ui-kit'
+import { Typography } from 'photo-flow-ui-kit'
+import { Input } from 'photo-flow-ui-kit'
+import { Checkbox } from 'photo-flow-ui-kit'
+import { Button } from 'photo-flow-ui-kit'
 import Link from 'next/link'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { RegistrationFields, signUpSchema } from '@/lib/feature/auth/schemas/signUpSchema'
 import { useRegistrationMutation } from '@/lib/feature/auth/api/authApi'
 import { useState } from 'react'
-import { ModalWindow } from '@/components/ui/modalWindow/ModalWindow'
+import { ModalWindow } from 'photo-flow-ui-kit'
 import { GitHubLoginButton, GoogleLoginButton } from '@/lib/feature/auth/ui'
 
 export default function SingUp() {

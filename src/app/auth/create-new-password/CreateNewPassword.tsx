@@ -1,9 +1,9 @@
 'use client'
 
-import { Card } from '@/components/ui/Card/Card'
-import { Typography } from '@/components/ui/typography/Typography'
-import { Input } from '@/components/ui/input/Input'
-import { Button } from '@/components/ui/button/Button'
+import { Card } from 'photo-flow-ui-kit'
+import { Typography } from 'photo-flow-ui-kit'
+import { Input } from 'photo-flow-ui-kit'
+import { Button } from 'photo-flow-ui-kit'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -49,7 +49,7 @@ export default function CreateNewPassword() {
   }
 
   return (
-    <Card className={'mx-auto mt-15 flex w-[378px] flex-col items-center px-6 pt-6 pb-9'}>
+    <Card className={'mx-auto mt-6 flex w-[378px] flex-col items-center px-6 pt-6 pb-9'}>
       <Typography variant={'h1'} className={'mb-9.5'}>
         Create New Password
       </Typography>

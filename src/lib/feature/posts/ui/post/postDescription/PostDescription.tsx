@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Typography } from '@/components/ui/typography/Typography'
+import { Typography } from 'photo-flow-ui-kit'
 import { formatTimeAgo } from '@/utils'
 import { PostResponse } from '@/lib/feature/posts/api/postsApi.types'
 import DefaultAvatar from '@/../public/defaultAvatar.jpg'

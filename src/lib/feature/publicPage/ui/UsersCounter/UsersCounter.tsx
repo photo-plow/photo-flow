@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-import { Typography } from '@/components/ui/typography/Typography'
-import { Card } from '@/components/ui/Card/Card'
+import { Typography } from 'photo-flow-ui-kit'
+import { Card } from 'photo-flow-ui-kit'
 
 type CounterProps = {
   usersCount: number
@@ -13,7 +13,7 @@ export const UsersCounter = ({ usersCount }: CounterProps) => {
   return (
     <Card
       className={
-        'mt-[24px] flex items-center justify-between overflow-hidden' +
+        'flex items-center justify-between overflow-hidden' +
         ' h-[72px] w-[996px] px-[24px] py-[12px]'
       }
     >

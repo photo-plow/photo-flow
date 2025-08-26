@@ -1,5 +1,5 @@
 'use client'
-import { Typography } from '@/components/ui/typography/Typography'
+import { Typography } from 'photo-flow-ui-kit'
 import Image from 'next/image'
 import Link from 'next/link'
 import { formatTimeAgo } from '@/utils'
@@ -7,7 +7,7 @@ import ExpandableText from '@/lib/feature/publicPage/ui/expandableText/Expandabl
 import { POSTS_ON_MAIN_PAGE } from '@/constants'
 import { useGetPublicPostsQuery } from '@/lib/feature/posts/api/postsApi'
 import { UserPostsResponse } from '@/lib/feature/posts/api/postsApi.types'
-import Loader from '@/components/ui/loader/Loader'
+import { Loader } from 'photo-flow-ui-kit'
 
 type PropsType = {
   initialPosts: UserPostsResponse

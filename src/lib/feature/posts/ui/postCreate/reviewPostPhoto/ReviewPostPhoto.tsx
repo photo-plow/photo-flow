@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { ModalWindow } from '@/components/ui/modalWindow/ModalWindow'
+import { ModalWindow } from 'photo-flow-ui-kit'
 import ArrowLeftIcon from '@/assets/icons/arrow-back.svg'
-import { Button } from '@/components/ui/button/Button'
+import { Button } from 'photo-flow-ui-kit'
 import IconImg from '@/assets/icons/img.svg'
 import { GalleryPreview } from '@/lib/feature/posts/ui/postCreate/reviewPostPhoto/galleryPreview/GalleryPreview'
 import { NavigationFormType } from '@/lib/feature/posts/ui/postCreate/PostCreate'
-import Slider from '@/components/ui/slider/Slider'
+import { Slider } from 'photo-flow-ui-kit'
 
 type PropsType = {
   setFormNavigation: (value: NavigationFormType) => void
@@ -46,7 +46,7 @@ export const ReviewPostPhoto = (props: PropsType) => {
         Next
       </Button>
       <form className='relative flex h-[504px] w-[490px]'>
-        <Slider images={imageUrls} data={'uiData'} />
+        <Slider images={imageUrls} data={'uiData'} getId={s => s} getUrl={s => s} />
         {openPreview && (
           <GalleryPreview
             setFilesImg={setFilesImg}

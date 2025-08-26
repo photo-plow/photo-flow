@@ -1,6 +1,6 @@
-import { Card } from '@/components/ui/Card/Card'
-import { Typography } from '@/components/ui/typography/Typography'
-import { Radio } from '@/components/ui/RadioGroup/RadioGroup'
+import { Card } from 'photo-flow-ui-kit'
+import { Typography } from 'photo-flow-ui-kit'
+import { Radio } from 'photo-flow-ui-kit'
 import { useState } from 'react'
 import { PaymentMethods } from '@/lib/feature/subscriptions/ui/AccountType/SubscriptionCost/PaymentMethods/PaymentMethods'
 

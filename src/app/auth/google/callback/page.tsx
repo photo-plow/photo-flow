@@ -6,7 +6,7 @@ import { AppDispatch } from '@/lib/store'
 import { useDispatch } from 'react-redux'
 import { useGoogleLoginMutation } from '@/lib/feature/auth/api/authApi'
 import { AUTH_TOKEN } from '@/constants'
-import Loader from '@/components/ui/loader/Loader'
+import { Loader } from 'photo-flow-ui-kit'
 import { setIsAuth } from '@/lib/appSlice'
 
 export default function GoogleCallback() {

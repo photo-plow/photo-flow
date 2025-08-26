@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ModalWindow } from '@/components/ui/modalWindow/ModalWindow'
+import { ModalWindow } from 'photo-flow-ui-kit'
 import IconImg from '@/assets/icons/img.svg'
 import { NavigationFormType } from '@/lib/feature/posts/ui/postCreate/PostCreate'
 import { MAX_FILE_SIZE, MAX_FILES } from '@/constants'

@@ -50,6 +50,9 @@ importers:
       next:
         specifier: 15.3.3
         version: 15.3.3(@babel/core@7.27.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      photo-flow-ui-kit:
+        specifier: ^1.0.19
+        version: 1.0.19(duh37yhrtj2tvyrijuy4s63xiy)
       react:
         specifier: ^19.0.0
         version: 19.1.0
@@ -3628,6 +3631,22 @@ packages:
   pathval@2.0.1:
     resolution: {integrity: sha512-//nshmD55c46FuFw26xV/xFAaB5HF9Xdap7HJBBnrKdAd6/GxDBaNA1870O79+9ueg61cZLSVc+OaFlfmObYVQ==}
     engines: {node: '>= 14.16'}
+
+  photo-flow-ui-kit@1.0.19:
+    resolution: {integrity: sha512-+4d0kkjaumsdoSmMkf5TjPF70H8pX6Cn5O2V41R3ydAzzn684QYZNXxUzj8w43rQdeZ9gNBTgDutvmc7Z5e3CA==}
+    peerDependencies:
+      '@radix-ui/react-checkbox': ^1.3.2
+      '@radix-ui/react-dialog': ^1.1.14
+      '@radix-ui/react-radio-group': ^1.3.7
+      '@radix-ui/react-select': ^2.2.5
+      '@radix-ui/react-slot': ^1.2.3
+      '@radix-ui/react-tabs': ^1.1.12
+      '@radix-ui/react-visually-hidden': ^1.2.3
+      next: ^14 || ^15
+      react: ^18 || ^19
+      react-dom: ^18 || ^19
+      react-google-recaptcha: ^3.1.0
+      react-hook-form: ^7
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -8158,6 +8177,23 @@ snapshots:
   pathe@2.0.3: {}
 
   pathval@2.0.1: {}
+
+  photo-flow-ui-kit@1.0.19(duh37yhrtj2tvyrijuy4s63xiy):
+    dependencies:
+      '@radix-ui/react-checkbox': 1.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@radix-ui/react-dialog': 1.1.14(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@radix-ui/react-radio-group': 1.3.7(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@radix-ui/react-select': 2.2.5(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@radix-ui/react-slot': 1.2.3(@types/react@19.1.8)(react@19.1.0)
+      '@radix-ui/react-tabs': 1.1.12(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@radix-ui/react-visually-hidden': 1.2.3(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      date-fns: 4.1.0
+      next: 15.3.3(@babel/core@7.27.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      react-google-recaptcha: 3.1.0(react@19.1.0)
+      react-hook-form: 7.59.0(react@19.1.0)
+      tailwind-merge: 3.3.1
 
   picocolors@1.1.1: {}
 

@@ -26,9 +26,6 @@ export const updateProfileSchema = z.object({
   aboutMe: z
     .string()
     .max(200, { message: 'About me cannot exceed 200 characters' })
-    .regex(/^[\w\d\s.,!?@#$%^&*()_+-=<>{}[\]\\|'"`~\/;:]*$/, {
-      message: 'About me can contain letters, numbers and special characters',
-    })
     .optional()
     .nullable()
     .or(z.literal('')),

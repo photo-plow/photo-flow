@@ -1,7 +1,7 @@
 'use client'
 
 import { useGetMeQuery } from '@/lib/feature/auth/api/authApi'
-import { Button } from '@/components/ui/button/Button'
+import { Button } from 'photo-flow-ui-kit'
 import Link from 'next/link'
 
 type Props = {

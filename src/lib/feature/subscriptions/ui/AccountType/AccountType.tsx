@@ -1,13 +1,13 @@
-import { Typography } from '@/components/ui/typography/Typography'
-import { Card } from '@/components/ui/Card/Card'
-import { Radio } from '@/components/ui/RadioGroup/RadioGroup'
-import { useEffect, useMemo, useState } from 'react'
+import { Typography } from 'photo-flow-ui-kit'
+import { Card } from 'photo-flow-ui-kit'
+import { Radio } from 'photo-flow-ui-kit'
+import { memo, useEffect, useMemo, useState } from 'react'
 import { SubscriptionCost } from '@/lib/feature/subscriptions/ui/AccountType/SubscriptionCost/SubscriptionCost'
 import { CurrentSubscription } from '@/lib/feature/subscriptions/ui/AccountType/currentSubscription/CurrentSubscription'
 import { useGetCurrentSubscriptionQuery } from '@/lib/feature/subscriptions/api/subscriptionApi'
-import Loader from '@/components/ui/loader/Loader'
+import { Loader } from 'photo-flow-ui-kit'
 
-export const AccountType = () => {
+export const AccountType = memo(() => {
   const accountTypeOptions = [
     { title: 'Personal', id: 'personal-id' },
     { title: 'Business', id: 'business-id' },
@@ -45,4 +45,6 @@ export const AccountType = () => {
       {accountType === 'Business' && <SubscriptionCost hasSubscription={data?.data.length} />}
     </>
   )
-}
+})
+
+AccountType.displayName = 'AccountType'

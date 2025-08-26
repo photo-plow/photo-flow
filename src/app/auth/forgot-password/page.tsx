@@ -2,15 +2,15 @@
 
 import { useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { Recaptcha } from '@/components/ui/recaptcha/Recaptcha'
-import { Button } from '@/components/ui/button/Button'
-import { Typography } from '@/components/ui/typography/Typography'
-import { Input } from '@/components/ui/input/Input'
-import { Card } from '@/components/ui/Card/Card'
+import { Recaptcha } from 'photo-flow-ui-kit'
+import { Button } from 'photo-flow-ui-kit'
+import { Typography } from 'photo-flow-ui-kit'
+import { Input } from 'photo-flow-ui-kit'
+import { Card } from 'photo-flow-ui-kit'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { useForgotPasswordMutation } from '@/lib/feature/auth/api/authApi'
-import { ModalWindow } from '@/components/ui/modalWindow/ModalWindow'
+import { ModalWindow } from 'photo-flow-ui-kit'
 import { ResponseError } from '@/lib/feature/auth/api/authApi.types'
 
 type FormData = {
@@ -82,7 +82,7 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div className={'flex h-[100vh] items-center justify-center'}>
+    <div className={'mt-9 flex items-center justify-center'}>
       <Card className='bg-dark-500 m-auto flex w-[378px] flex-col items-center px-[24px] pt-[24px] pb-[16px]'>
         <Typography variant='h1' className='mb-[37px]'>
           Forgot Password

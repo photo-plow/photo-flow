@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge'
-import { Typography } from '@/components/ui/typography/Typography'
+import { Typography } from 'photo-flow-ui-kit'
 import {
   PostData,
   UserPosts,
@@ -12,7 +12,7 @@ import { UserProfileMetadata } from '@/lib/feature/profile/ui/components/profile
 import { PAGE_SIZE } from '@/constants'
 import { UserPostsResponse } from '@/lib/feature/posts/api/postsApi.types'
 import { getComments, getPost } from '@/lib/feature/posts/ssr/getPostSSR'
-import { Button } from '@/components/ui/button/Button'
+import { Button } from 'photo-flow-ui-kit'
 import Link from 'next/link'
 import PostModal from '@/lib/feature/posts/ui/post/PostModal'
 
@@ -44,7 +44,7 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
     const userPosts: UserPostsResponse = await userPostsData.json()
     const totalCountPosts = userPosts.totalCount
     return (
-      <div className={twMerge('m-auto w-[1060px] pt-[36px]')}>
+      <div className={twMerge('m-auto w-[1060px]')}>
         <div className='flex gap-[38px] pr-[64px]'>
           <Image
             priority

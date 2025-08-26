@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import ArrowBack from '@/assets/icons/arrow-back-outline.svg'
-import { Typography } from '@/components/ui/typography/Typography'
+import { Typography } from 'photo-flow-ui-kit'
 
 export default function TermsOfService() {
   return (

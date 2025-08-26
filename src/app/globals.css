@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/inter';
+@import 'photo-flow-ui-kit/styles.css';
 
 @theme {
   --font-sans: 'Inter Variable', sans-serif;

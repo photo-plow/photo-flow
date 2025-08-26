@@ -5,7 +5,7 @@ import { setIsAuth } from '@/lib/appSlice'
 import { useGetMeQuery } from '@/lib/feature/auth/api/authApi'
 import { useRouter } from 'next/navigation'
 import { AUTH_TOKEN } from '@/constants'
-import Loader from '@/components/ui/loader/Loader'
+import { Loader } from 'photo-flow-ui-kit'
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = useAppDispatch()

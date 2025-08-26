@@ -1,11 +1,11 @@
 'use client'
 
-import { ModalWindow } from '@/components/ui/modalWindow/ModalWindow'
+import { ModalWindow } from 'photo-flow-ui-kit'
 import { Comment, getPostInformation, PostResponse } from '@/lib/feature/posts/api/postsApi.types'
 import { useRouter, useParams, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
-import { Typography } from '@/components/ui/typography/Typography'
-import Slider from '@/components/ui/slider/Slider'
+import { Typography } from 'photo-flow-ui-kit'
+import { Slider } from 'photo-flow-ui-kit'
 import PostDescription from '@/lib/feature/posts/ui/post/postDescription/PostDescription'
 import PostComment from '@/lib/feature/posts/ui/post/postComment/PostComment'
 import PostFooter from '@/lib/feature/posts/ui/post/postFooter/PostFooter'
@@ -78,6 +78,8 @@ export default function PostModal({ post, comments }: PropsType) {
       )}
     >
       <Slider
+        getId={p => p.uploadId}
+        getUrl={p => p.url}
         images={post.images}
         data={'serverData'}
         classname={twMerge('h-full', isEditMode ? 'col-span-1 row-span-1' : 'w-1/2')}

@@ -1,21 +1,21 @@
 'use client'
 import Link from 'next/link'
-import { Input } from '@/components/ui/input/Input'
-import { Button } from '@/components/ui/button/Button'
+import { Input } from 'photo-flow-ui-kit'
+import { Button } from 'photo-flow-ui-kit'
 import { LoginFields, signInSchema } from '@/lib/feature/auth/schemas/signInSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useLoginMutation } from '@/lib/feature/auth/api/authApi'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useLazyGetProfileQuery } from '@/lib/feature/profile/api/profileApi'
-import { Card } from '@/components/ui/Card/Card'
-import { Typography } from '@/components/ui/typography/Typography'
+import { Card } from 'photo-flow-ui-kit'
+import { Typography } from 'photo-flow-ui-kit'
 import { GitHubLoginButton, GoogleLoginButton } from '@/lib/feature/auth/ui'
 import { AUTH_TOKEN } from '@/constants'
-import { selectIsAuth, setIsAuth } from '@/lib/appSlice'
+import { setIsAuth } from '@/lib/appSlice'
 // import { selectAppError, selectIsAuth, setAppError, setIsAuth } from '@/lib/appSlice'
-import { useAppDispatch, useAppSelector } from '@/lib/hooks'
+import { useAppDispatch } from '@/lib/hooks'
 
 type ApiError = {
   status: number
@@ -35,7 +35,7 @@ export default function SignIn() {
   const router = useRouter()
 
   const dispatch = useAppDispatch()
-  const isAuth = useAppSelector(selectIsAuth)
+  // const isAuth = useAppSelector(selectIsAuth)
   // const error = useAppSelector(selectAppError)
 
   const {
@@ -51,12 +51,6 @@ export default function SignIn() {
       password: '',
     },
   })
-
-  useEffect(() => {
-    if (isAuth) {
-      router.back()
-    }
-  }, [router, isAuth])
 
   const onSubmit = async (data: LoginFields) => {
     try {
@@ -96,7 +90,7 @@ export default function SignIn() {
   }
 
   return (
-    <Card className={`mx-auto mt-9 w-[380px] p-6`}>
+    <Card className={`mx-auto w-[380px] p-6`}>
       <Typography variant={'h1'} className={'mb-[14px] text-center'}>
         Sign In
       </Typography>

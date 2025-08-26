@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import GitHubCallback from '@/app/auth/github/callback/GitHubCallback'
-import Loader from '@/components/ui/loader/Loader'
+import { Loader } from 'photo-flow-ui-kit'
 
 export default function Page() {
   return (
