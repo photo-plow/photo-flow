@@ -33,7 +33,7 @@ export function Content({ children }: { children: React.ReactNode }) {
     },
     {
       title: 'My Profile',
-      url: `/profile/${data!.userId}`,
+      url: `/profile/${data?.userId}`,
       icon: AccountIcon,
     },
     {
