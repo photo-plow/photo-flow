@@ -1,82 +1,32 @@
 'use client'
 
-import {
-  BaseQueryApi,
-  FetchBaseQueryError,
-  FetchBaseQueryMeta,
-  QueryReturnValue,
-} from '@reduxjs/toolkit/query/react'
-import { isErrorWithMessage } from '@/common/utils/isErrorWithMesage'
-import { ResultCode } from '@/common/enums/enums'
-import { setAppError } from '@/lib/appSlice'
-import { alertService } from '@/components/ui/Alert/alertService'
-// import { RootState } from '@/lib/store'
+export const handleError = (status: string, errorText?: string) => {
+  switch (status) {
+    case 'FETCH_ERROR':
+      return 'Network error. Please check your connection.'
 
-export const handleError = (
-  api: BaseQueryApi,
-  result: QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>
-) => {
-  let error = 'Some error occurred'
+    case 'PARSING_ERROR':
+      return 'Server returned invalid data.'
 
-  // const state = api.getState() as RootState
+    case 'CUSTOM_ERROR':
+      return errorText ?? 'Some error occurred'
 
-  if (result.error) {
-    switch (result.error.status) {
-      case 'FETCH_ERROR':
-        error = 'Network error. Please check your connection.'
-        break
-      case 'PARSING_ERROR':
-        error = 'Server returned invalid data.'
-        break
-      case 'CUSTOM_ERROR':
-        error = result.error.error
-        break
-      case 400:
-        error = 'Incorect values'
-        break
-      case 401:
-        error = 'You are unauthorized'
-        break
-      case 403:
-        error = 'No access rights'
-        break
-      case 429:
-        error = '429'
-        break
+    case '400':
+      return 'Incorect values'
 
-      case 500:
-        if (isErrorWithMessage(result.error.data)) {
-          error = result.error.data.message
-        } else {
-          error = JSON.stringify(result.error.data)
-        }
-        break
-      default:
-        error = JSON.stringify(result.error)
-        break
-    }
+    case '401':
+      return 'You are unauthorized'
 
-    // const currentError = state.app.error
-    // console.log(currentError)
+    case '403':
+      return 'No access rights'
 
-    // if (!currentError) {
-    //   alertService.show({ message: error, type: 'error' })
-    //   api.dispatch(setAppError({ error }))
-    // }
+    case '429':
+      return '429'
 
-    alertService.show({ message: error, type: 'error' })
-    api.dispatch(setAppError({ error }))
-  }
+    case '500':
+      return 'Internal Server Error'
 
-  if ((result.error as { status: ResultCode }).status !== ResultCode.Success) {
-    const messages = (result.error?.data as { messages: string[] }).messages
-    error = messages.length ? messages[0] : error
-    api.dispatch(setAppError({ error }))
-    // const currentError = state.app.error
-    // console.log(currentError)
-
-    // if (!currentError) {
-    //   api.dispatch(setAppError({ error }))
-    // }
+    default:
+      return 'Some error occurred'
   }
 }

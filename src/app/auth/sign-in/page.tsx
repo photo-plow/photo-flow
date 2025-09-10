@@ -13,9 +13,9 @@ import { Card } from 'photo-flow-ui-kit'
 import { Typography } from 'photo-flow-ui-kit'
 import { GitHubLoginButton, GoogleLoginButton } from '@/lib/feature/auth/ui'
 import { AUTH_TOKEN } from '@/constants'
-import { setIsAuth } from '@/lib/appSlice'
-// import { selectAppError, selectIsAuth, setAppError, setIsAuth } from '@/lib/appSlice'
+import { setAppError, setIsAuth } from '@/lib/appSlice'
 import { useAppDispatch } from '@/lib/hooks'
+import { handleError } from '@/common/utils/handleError'
 
 type ApiError = {
   status: number
@@ -35,8 +35,6 @@ export default function SignIn() {
   const router = useRouter()
 
   const dispatch = useAppDispatch()
-  // const isAuth = useAppSelector(selectIsAuth)
-  // const error = useAppSelector(selectAppError)
 
   const {
     register,
@@ -74,9 +72,9 @@ export default function SignIn() {
         router.push(`/profile/${profileResponse.id}/ProfileSettings`)
       }
     } catch (err: unknown) {
-      const apiError = err as ApiError // какая-то херня приходит. Менять на свой текст через setAppError
-      // dispatch(setAppError({ error: 'Incorrect input data' })) // Не меняется. Возможно потому, что сюда уже приходит другой err
-
+      const apiError = err as ApiError
+      const errorText = handleError(String(apiError.status))
+      dispatch(setAppError({ error: errorText }))
       if (apiError) {
         setLoginError('The email or password are incorrect. Try again please')
       }
