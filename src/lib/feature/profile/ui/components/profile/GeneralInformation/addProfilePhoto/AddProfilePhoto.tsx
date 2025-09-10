@@ -12,7 +12,7 @@ export const AddProfilePhoto = () => {
   const { data, refetch } = useGetProfileQuery()
   return (
     <div className='flex w-[196px] flex-col items-center'>
-      {data?.avatars[0].url ? (
+      {data?.avatars[0]?.url ? (
         <Image
           src={data.avatars[0].url}
           alt={'avatar'}
