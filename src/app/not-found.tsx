@@ -14,8 +14,10 @@ export default function NotFound() {
         textAlign: 'center',
         gap: 16,
         padding: 0,
-        minHeight: '100vh', // Из-за этого есть небольшой скролл
         margin: 0,
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
         transform: 'translateY(-96px)',
       }}
     >
