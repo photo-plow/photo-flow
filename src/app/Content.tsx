@@ -65,7 +65,7 @@ export function Content({ children }: { children: React.ReactNode }) {
       <Header isAuth={isAuth} />
       <div className='max-w-[1920px]'>
         <div className='flex'>
-          {isAuth && (
+          {isAuth && data && (
             <Sidebar
               menuItems={mainMenuItems}
               secondaryMenuItems={secondaryMenuItems}

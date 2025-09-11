@@ -26,7 +26,6 @@ type ProfilePageProps = {
 export default async function ProfilePage({ params, searchParams }: ProfilePageProps) {
   const { postId } = await searchParams
   const postDataQuery = {} as PostData
-  console.log('server')
   const { id: userId } = await params
   try {
     if (postId) {
