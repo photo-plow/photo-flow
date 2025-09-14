@@ -21,7 +21,7 @@ export const handleError = (status: string, errorText?: string) => {
       return 'No access rights'
 
     case '429':
-      return '429'
+      return 'More than 5 attempts from one IP-address during 10 seconds'
 
     case '500':
       return 'Internal Server Error'

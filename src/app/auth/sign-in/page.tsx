@@ -65,10 +65,8 @@ export default function SignIn() {
         profileResponse.userName &&
         profileResponse.dateOfBirth
       ) {
-        // Если есть имя, фамилия в профиле(создан, заполнен)
-        router.push(`/profile/${profileResponse.id}`)
+        router.push(`/`)
       } else {
-        // Если профиль не создан
         router.push(`/profile/${profileResponse.id}/ProfileSettings`)
       }
     } catch (err: unknown) {

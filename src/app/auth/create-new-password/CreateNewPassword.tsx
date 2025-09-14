@@ -43,7 +43,6 @@ export default function CreateNewPassword() {
       reset()
       router.push('/auth/sign-in')
     } catch (err) {
-      // Добавить сюда корректную обработку ошибок
       console.log(err)
     }
   }
