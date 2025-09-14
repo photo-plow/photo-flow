@@ -13,14 +13,17 @@ import { useRegistrationMutation } from '@/lib/feature/auth/api/authApi'
 import { useState } from 'react'
 import { ModalWindow } from 'photo-flow-ui-kit'
 import { GitHubLoginButton, GoogleLoginButton } from '@/lib/feature/auth/ui'
+import { handleError } from '@/common/utils/handleError'
+import { setAppError } from '@/lib/appSlice'
+import { useAppDispatch } from '@/lib/hooks'
 
 export default function SingUp() {
   const [userNameError, setUserNameError] = useState<string | null>(null)
   const [emailError, setEmailError] = useState<string | null>(null)
   const [isOpenModalWindow, setIsOpenModalWindow] = useState(false)
   const [email, setEmail] = useState<string>('')
+  const dispatch = useAppDispatch()
 
-  console.log('RENDER FORM')
   const {
     register,
     handleSubmit,
@@ -57,6 +60,8 @@ export default function SingUp() {
         setIsOpenModalWindow(true)
       })
       .catch(err => {
+        const errorText = handleError(String(err!.statusCode))
+        dispatch(setAppError({ error: errorText }))
         if (err.data.messages[0].field === 'userName') {
           setUserNameError('User with this username is already registered')
         }

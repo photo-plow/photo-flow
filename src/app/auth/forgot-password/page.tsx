@@ -12,6 +12,9 @@ import { useForm } from 'react-hook-form'
 import { useForgotPasswordMutation } from '@/lib/feature/auth/api/authApi'
 import { ModalWindow } from 'photo-flow-ui-kit'
 import { ResponseError } from '@/lib/feature/auth/api/authApi.types'
+import { useAppDispatch } from '@/lib/hooks'
+import { handleError } from '@/common/utils/handleError'
+import { setAppError } from '@/lib/appSlice'
 
 type FormData = {
   email: string
@@ -36,6 +39,7 @@ export default function ForgotPassword() {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [currentEmail, setCurrentEmail] = useState('')
+  const dispatch = useAppDispatch()
 
   const captchaRef = useRef<ReCAPTCHA>(null)
 
@@ -59,19 +63,11 @@ export default function ForgotPassword() {
       setIsModalOpened(true)
     } catch (error: unknown) {
       if (error !== null && typeof error === 'object' && 'status' in error && 'data' in error) {
+        setCaptchaToken(null)
         const apiError = error as ResponseError
-        if (apiError.status === 400) {
-          setError(apiError.data.messages[0].message)
-          setCaptchaToken(null)
-          captchaRef.current?.reset()
-        } else if (apiError.status === 500) {
-          setError('SERVER ERROR')
-        } else {
-          setError('Some error')
-        }
-      } else {
-        setError('Watch console')
-        console.log(error)
+
+        const errorText = handleError(String(apiError.status))
+        dispatch(setAppError({ error: errorText }))
       }
     }
   }

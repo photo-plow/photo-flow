@@ -16,8 +16,6 @@ import { Button } from 'photo-flow-ui-kit'
 import Link from 'next/link'
 import PostModal from '@/lib/feature/posts/ui/post/PostModal'
 
-// вернуть 404 если нет пользователя или не валидность
-
 type ProfilePageProps = {
   params: Promise<{ id: string }>
   searchParams: Promise<{ postId: string }>

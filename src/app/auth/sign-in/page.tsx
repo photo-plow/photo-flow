@@ -13,8 +13,9 @@ import { Card } from 'photo-flow-ui-kit'
 import { Typography } from 'photo-flow-ui-kit'
 import { GitHubLoginButton, GoogleLoginButton } from '@/lib/feature/auth/ui'
 import { AUTH_TOKEN } from '@/constants'
-import { setIsAuth } from '@/lib/appSlice'
+import { setAppError, setIsAuth } from '@/lib/appSlice'
 import { useAppDispatch } from '@/lib/hooks'
+import { handleError } from '@/common/utils/handleError'
 
 type ApiError = {
   status: number
@@ -64,19 +65,16 @@ export default function SignIn() {
         profileResponse.userName &&
         profileResponse.dateOfBirth
       ) {
-        // Если есть имя, фамилия в профиле(создан, заполнен)
-        router.push(`/profile/${profileResponse.id}`)
+        router.push(`/`)
       } else {
-        // Если профиль не создан
         router.push(`/profile/${profileResponse.id}/ProfileSettings`)
       }
-    } catch (error: unknown) {
-      const apiError = error as ApiError
-
-      if (apiError.data) {
+    } catch (err: unknown) {
+      const apiError = err as ApiError
+      const errorText = handleError(String(apiError.status))
+      dispatch(setAppError({ error: errorText }))
+      if (apiError) {
         setLoginError('The email or password are incorrect. Try again please')
-      } else {
-        console.log(error)
       }
     }
   }
