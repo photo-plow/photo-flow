@@ -4,7 +4,7 @@ import IconImg from '@/assets/icons/img.svg'
 import { NavigationFormType } from '@/lib/feature/posts/ui/postCreate/PostCreate'
 import { MAX_FILE_SIZE, MAX_FILES } from '@/constants'
 
-export type PropsType = {
+type PropsType = {
   setFilesImg: React.Dispatch<React.SetStateAction<File[]>>
   setImageUrls: (value: string[]) => void
   setFormNavigation: (value: NavigationFormType) => void

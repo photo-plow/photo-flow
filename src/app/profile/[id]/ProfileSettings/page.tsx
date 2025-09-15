@@ -6,7 +6,7 @@ import { AccountType } from '@/lib/feature/subscriptions/ui/AccountType/AccountT
 import { ModalWindow } from '@/components/ui/modalWindow/ModalWindow'
 import { Typography } from '@/components/ui/typography/Typography'
 import { Button } from '@/components/ui/button/Button'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { useGetMeQuery } from '@/lib/feature/auth/api/authApi'
 import Loader from '@/components/ui/loader/Loader'
@@ -15,8 +15,10 @@ import { MyPayments } from '@/lib/feature/subscriptions/ui/myPayments/MyPayments
 const ProfileSettings = () => {
   const router = useRouter()
   const profileParams = useParams()
-  const params = useSearchParams()
-  const success = params.get('success')
+  const searchParams = useSearchParams()
+  const success = searchParams.get('success')
+  const pathname = usePathname()
+
   const [isModalOpen, setIsModalOpen] = useState(!!success)
   const { data } = useGetMeQuery()
 
@@ -29,6 +31,9 @@ const ProfileSettings = () => {
 
   const onCloseModalWindow = () => {
     setIsModalOpen(false)
+    const params = new URLSearchParams(searchParams.toString())
+    params.delete('success')
+    router.replace(pathname)
     return null
   }
 
