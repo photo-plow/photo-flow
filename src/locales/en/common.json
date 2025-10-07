@@ -1,0 +1,12 @@
+{
+  "auth": {
+    "title": "Sign In",
+    "emailPlaceholder": "email@example.com",
+    "passwordPlaceholder": "Password",
+    "forgot": "Forgot Password",
+    "noAccount": "Don’t have an account?",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "badCredentials": "The email or password are incorrect. Try again please"
+  }
+}

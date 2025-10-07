@@ -1,0 +1,12 @@
+{
+  "auth": {
+    "title": "Вход",
+    "emailPlaceholder": "email@example.com",
+    "passwordPlaceholder": "Пароль",
+    "forgot": "Забыли пароль?",
+    "noAccount": "Нет аккаунта?",
+    "signIn": "Войти",
+    "signUp": "Зарегистрироваться",
+    "badCredentials": "Неверный email или пароль. Попробуйте ещё раз."
+  }
+}

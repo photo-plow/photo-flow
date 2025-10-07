@@ -14,11 +14,27 @@ import SearchIcon from '@/assets/icons/search.svg'
 import StatisticsIcon from '@/assets/icons/statistics.svg'
 import FavoriteIcon from '@/assets/icons/bookmark-outline.svg'
 import { useLogout } from '@/utils/useLogout/useLogout'
+import { usePathname, useRouter } from 'next/navigation'
+
+type Locale = 'ru' | 'en'
 
 export function Content({ children }: { children: React.ReactNode }) {
   const isAuth = useAppSelector(selectIsAuth)
   const { logoutHandler, setIsModalOpen, isModalOpen } = useLogout()
   const { data } = useGetMeQuery()
+  const router = useRouter()
+  const pathname = usePathname() || '/'
+
+  const segs = pathname.split('/')
+  const current: Locale = segs[1] === 'en' ? 'en' : 'ru'
+
+  const onLanguageChange = (lng: Locale) => {
+    document.cookie = `lng=${lng};path=/;max-age=31536000`
+    const parts = pathname.split('/')
+    if (parts[1] === 'ru' || parts[1] === 'en') parts.splice(1, 1)
+    const base = parts.join('/') || '/'
+    router.push(`/${lng}${base === '/' ? '' : base}`)
+  }
 
   const mainMenuItems = [
     {
@@ -62,7 +78,7 @@ export function Content({ children }: { children: React.ReactNode }) {
 
   return (
     <AlertProvider>
-      <Header isAuth={isAuth} />
+      <Header isAuth={isAuth} language={current} onLanguageChange={onLanguageChange} />
       <div className='max-w-[1920px]'>
         <div className='flex'>
           {isAuth && data && (
