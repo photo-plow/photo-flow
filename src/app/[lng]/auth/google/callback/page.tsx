@@ -26,7 +26,7 @@ export default function GoogleCallback() {
       try {
         const res = await googleLogin({
           code,
-          redirectUrl: `${window.location.origin}/auth/google/callback`,
+          redirectUrl: `${window.location.origin}${withLocale('/auth/google/callback')}`,
         }).unwrap()
         localStorage.setItem(AUTH_TOKEN, res.accessToken)
         dispatch(setIsAuth({ isAuth: true }))

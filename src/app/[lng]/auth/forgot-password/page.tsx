@@ -16,6 +16,7 @@ import { useAppDispatch } from '@/lib/hooks'
 import { handleError } from '@/common/utils/handleError'
 import { setAppError } from '@/lib/appSlice'
 import { useWithLocale } from '@/i18n/hooks'
+import { useTranslation } from 'react-i18next'
 
 type FormData = {
   email: string
@@ -42,6 +43,7 @@ export default function ForgotPassword() {
   const [currentEmail, setCurrentEmail] = useState('')
   const dispatch = useAppDispatch()
   const withLocale = useWithLocale()
+  const { t } = useTranslation()
   const captchaRef = useRef<ReCAPTCHA>(null)
 
   const onSubmit = async (data: FormData) => {
@@ -82,31 +84,31 @@ export default function ForgotPassword() {
     <div className={'mt-9 flex items-center justify-center'}>
       <Card className='bg-dark-500 m-auto flex w-[378px] flex-col items-center px-[24px] pt-[24px] pb-[16px]'>
         <Typography variant='h1' className='mb-[37px]'>
-          Forgot Password
+          {t('auth_signIn_forgot')}
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)} className={'mb-[24px]'} noValidate>
           <Input
             type={'email'}
-            placeholder={'Epam@epam.com'}
+            placeholder={t('common_emailPlaceholder')}
             className='mb-[7px] w-full'
             errorText={errors.email?.message || error}
             {...register('email', {
-              required: 'Email is required',
+              required: t('auth_validation_email_required'),
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'The email must match the format example@example.com',
+                message: t('auth_validation_email_format'),
               },
             })}
             onChange={() => setError(null)}
           />
           <Typography variant='regular_text_14' className='text-light-900 mb-[17px]'>
-            Enter your email address and we will send you further instructions
+            {t('auth_forgot_desc')}
           </Typography>
           {isEmailSent && (
             <Typography variant='regular_text_14' className='text-light-100 mb-[23px]'>
-              The link has been sent by email.
+              {t('auth_forgot_sent')}
               <br />
-              If you don’t receive an email send link again
+              {t('auth_forgot_resendHint')}
             </Typography>
           )}
           <Button
@@ -114,7 +116,7 @@ export default function ForgotPassword() {
             className='h-[36px] w-full text-[16px] font-semibold'
             disabled={isLoading}
           >
-            Send Link {isEmailSent ? 'Again' : ''}
+            {t(isEmailSent ? 'auth_forgot_sendAgain' : 'auth_forgot_send')}
           </Button>
         </form>
         <Button
@@ -123,7 +125,7 @@ export default function ForgotPassword() {
           variant='text'
           disabled={isLoading}
         >
-          <Link href={withLocale('/auth/sign-in')}>Back to Sign In</Link>
+          <Link href={withLocale('/auth/sign-in')}>{t('auth_backToSignIn')}</Link>
         </Button>
 
         {showCaptcha && (
@@ -135,19 +137,19 @@ export default function ForgotPassword() {
         )}
       </Card>
       <ModalWindow
-        modalTitle='Email sent'
+        modalTitle={t('auth_modal_emailSent_title')}
         open={isModalOpened}
         onClose={() => setIsModalOpened(false)}
       >
         <div className='h-full w-full px-[24px] pt-[30px] pb-[36px]'>
           <Typography variant='regular_text_16'>
-            We have sent a link to confirm your email to {currentEmail}
+            {t('auth_modal_emailSent_text', { email: currentEmail })}
           </Typography>
           <Button
             onClick={() => setIsModalOpened(false)}
             className='absolute right-[24px] bottom-[36px]'
           >
-            OK
+            {t('common_ok')}
           </Button>
         </div>
       </ModalWindow>

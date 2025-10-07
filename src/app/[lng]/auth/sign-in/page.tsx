@@ -75,7 +75,7 @@ export default function SignIn() {
       const errorText = handleError(String(apiError.status))
       dispatch(setAppError({ error: errorText }))
       if (apiError) {
-        setLoginError(t('auth.badCredentials'))
+        setLoginError(t('auth_error_badCredentials'))
       }
     }
   }
@@ -89,7 +89,7 @@ export default function SignIn() {
   return (
     <Card className={`mx-auto w-[380px] p-6`}>
       <Typography variant={'h1'} className={'mb-[14px] text-center'}>
-        {t('auth.signIn')}
+        {t('auth_signIn_title')}
       </Typography>
       <div className={'mb-6 flex justify-center gap-15'}>
         <GitHubLoginButton />
@@ -103,7 +103,7 @@ export default function SignIn() {
       <form onSubmit={handleSubmit(onSubmit)} className={`flex flex-col`}>
         <div className='mb-9 flex flex-col gap-6'>
           <Input
-            placeholder='Epam@epam.com'
+            placeholder={t('common_emailPlaceholder')}
             type='email'
             className={`w-full`}
             errorText={errors.email?.message}
@@ -112,7 +112,7 @@ export default function SignIn() {
             })}
           />
           <Input
-            placeholder={t('auth.passwordPlaceholder')}
+            placeholder={t('common_passwordPlaceholder')}
             type='password'
             className={`w-full`}
             errorText={errors.password?.message}
@@ -128,7 +128,7 @@ export default function SignIn() {
           className='text-light-900 mb-6 ml-auto w-[112px] border-0 p-0'
         >
           <Link href={withLocale('/auth/forgot-password')}>
-            <Typography variant={'regular_text_14'}>{t('auth.forgot')}</Typography>
+            <Typography variant={'regular_text_14'}>{t('auth_signIn_forgot')}</Typography>
           </Link>
         </Button>
         <div className='flex flex-col items-center'>
@@ -138,11 +138,11 @@ export default function SignIn() {
             type='submit'
             disabled={!isValid || !!loginError}
           >
-            {t('auth.signIn')}
+            {t('auth_label_signIn')}
           </Button>
-          <p className='mb-[6px] leading-[1.5]'>{t('auth.noAccount')}</p>
+          <p className='mb-[6px] leading-[1.5]'> {t('auth_signIn_noAccount')}</p>
           <Button asChild variant='text' className='leading-[1.5] font-semibold'>
-            <Link href={withLocale('/auth/sign-up')}>{t('auth.signUp')}</Link>
+            <Link href={withLocale('/auth/sign-up')}>{t('auth_label_signUp')}</Link>
           </Button>
         </div>
       </form>

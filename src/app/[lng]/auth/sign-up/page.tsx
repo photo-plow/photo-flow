@@ -17,6 +17,7 @@ import { handleError } from '@/common/utils/handleError'
 import { setAppError } from '@/lib/appSlice'
 import { useAppDispatch } from '@/lib/hooks'
 import { useWithLocale } from '@/i18n/hooks/useWithLocale'
+import { useTranslation } from 'react-i18next'
 
 export default function SingUp() {
   const [userNameError, setUserNameError] = useState<string | null>(null)
@@ -25,6 +26,7 @@ export default function SingUp() {
   const [email, setEmail] = useState<string>('')
   const dispatch = useAppDispatch()
   const withLocale = useWithLocale()
+  const { t } = useTranslation()
 
   const {
     register,
@@ -53,7 +55,7 @@ export default function SingUp() {
       userName: data.username,
       email: data.email,
       password: data.password,
-      baseUrl: window.location.origin + '/auth/sign-up',
+      baseUrl: window.location.origin + withLocale('/auth/sign-up'),
     })
       .unwrap()
       .then(() => {
@@ -65,10 +67,10 @@ export default function SingUp() {
         const errorText = handleError(String(err!.statusCode))
         dispatch(setAppError({ error: errorText }))
         if (err.data.messages[0].field === 'userName') {
-          setUserNameError('User with this username is already registered')
+          setUserNameError(t('auth_error_usernameExists'))
         }
         if (err.data.messages[0].field === 'email') {
-          setEmailError('User with this email is already registered')
+          setEmailError(t('auth_error_emailExists'))
         }
       })
   }
@@ -76,7 +78,7 @@ export default function SingUp() {
   return (
     <Card className={'mx-auto my-6 flex max-w-[378px] flex-col items-center p-6'}>
       <Typography variant={'h1'} className={'mb-3'}>
-        Sign Up
+        {t('auth_signUp_title')}
       </Typography>
       <div className={'mb-6 flex gap-15'}>
         <GitHubLoginButton />
@@ -90,6 +92,7 @@ export default function SingUp() {
           <Input
             className={'min-h-[84px]'}
             type={'username'}
+            placeholder={t('auth_signUp_usernamePlaceholder')}
             errorText={errors.username?.message || userNameError}
             {...register('username', {
               onChange: () => setUserNameError(null),
@@ -97,7 +100,8 @@ export default function SingUp() {
           />
           <Input
             className={'min-h-[84px]'}
-            type={'Email'}
+            type={'email'}
+            placeholder={t('common_emailPlaceholder')}
             errorText={errors.email?.message || emailError}
             {...register('email', {
               onChange: () => setEmailError(null),
@@ -106,11 +110,12 @@ export default function SingUp() {
           <Input
             className={'min-h-[84px]'}
             type={'password'}
+            placeholder={t('common_passwordPlaceholder')}
             errorText={errors.password?.message}
             {...register('password')}
           />
           <Input
-            label={'Password confirmation'}
+            label={t('auth_signUp_passwordConfirmationLabel')}
             type={'password'}
             errorText={errors.passwordConfirmation?.message}
             {...register('passwordConfirmation')}
@@ -130,13 +135,13 @@ export default function SingUp() {
             )}
           />
           <Typography variant={'small_text'}>
-            I agree to the&nbsp;
+            {t('auth_agree_prefix')}&nbsp;
             <Link href={withLocale('/auth/sign-up/terms')}>
-              <Typography variant={'small_link'}>Terms of Service</Typography>
+              <Typography variant={'small_link'}>{t('auth_terms_label')}</Typography>
             </Link>
-            <Typography variant={'small_text'}> and </Typography>
+            <Typography variant={'small_text'}> {t('common_and')} </Typography>
             <Link href={withLocale('/auth/sign-up/privacy')}>
-              <Typography variant={'small_link'}>Privacy Policy</Typography>
+              <Typography variant={'small_link'}>{t('auth_privacy_label')}</Typography>
             </Link>
           </Typography>
         </div>
@@ -144,28 +149,28 @@ export default function SingUp() {
           className={'w-full'}
           disabled={!isValid || !isDirty || !!userNameError || !!emailError}
         >
-          <Typography variant={'h3'}>Sign Up</Typography>
+          <Typography variant={'h3'}>{t('auth_label_signUp')}</Typography>
         </Button>
       </form>
       <Typography variant={'regular_text_16'} className={'mb-1.5'}>
-        Do you have an account?
+        {t('auth_signUp_haveAccount')}
       </Typography>
       <Button className={'w-full text-center'} variant={'text'} asChild>
         <Link href={withLocale('/auth/sign-in')}>
-          <Typography variant={'h3'}>Sign In</Typography>
+          <Typography variant={'h3'}>{t('auth_label_signIn')}</Typography>
         </Link>
       </Button>
       <ModalWindow
-        modalTitle={'Email sent'}
+        modalTitle={t('auth_modal_emailSent_title')}
         open={isOpenModalWindow}
         onClose={() => setIsOpenModalWindow(false)}
       >
         <div className={'relative mt-7.5 px-6'}>
           <Typography className={'mb-4.5'} variant={'regular_text_16'}>
-            We have sent a link to confirm your email to {email}
+            {t('auth_modal_emailSent_text', { email })}
           </Typography>
           <Button onClick={() => setIsOpenModalWindow(false)} className={'float-right w-24'}>
-            OK
+            {t('common_ok')}
           </Button>
         </div>
       </ModalWindow>

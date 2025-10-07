@@ -13,12 +13,14 @@ import {
 import { useCreateNewPasswordMutation } from '@/lib/feature/auth/api/authApi'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useWithLocale } from '@/i18n/hooks'
+import { useTranslation } from 'react-i18next'
 
 export default function CreateNewPassword() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const code = searchParams.get('code')
   const withLocale = useWithLocale()
+  const { t } = useTranslation()
 
   const {
     register,
@@ -51,28 +53,28 @@ export default function CreateNewPassword() {
   return (
     <Card className={'mx-auto mt-6 flex w-[378px] flex-col items-center px-6 pt-6 pb-9'}>
       <Typography variant={'h1'} className={'mb-9.5'}>
-        Create New Password
+        {t('auth_newPassword_title')}
       </Typography>
       <form onSubmit={handleSubmit(onSubmitHandler)}>
         <Input
           errorText={errors.password?.message}
           type={'password'}
           className={'min-h-21'}
-          label={'New password'}
+          label={t('auth_newPassword_label')}
           {...register('password')}
         />
         <Input
           errorText={errors.passwordConfirmation?.message}
           type={'password'}
           className={'mb-2'}
-          label={'Password confirmation'}
+          label={t('auth_signUp_passwordConfirmationLabel')}
           {...register('passwordConfirmation')}
         />
         <Typography variant={'regular_text_14'} className={'text-light-900 mb-10'}>
-          Your password must be between 6 and 20 characters
+          {t('common_passwordRules_6_20')}
         </Typography>
         <Button className={'w-full'} disabled={!isValid}>
-          <Typography variant={'h3'}>Create new password</Typography>
+          <Typography variant={'h3'}>{t('auth_newPassword_submit')}</Typography>
         </Button>
       </form>
     </Card>
