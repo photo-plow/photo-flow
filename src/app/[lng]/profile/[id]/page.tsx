@@ -15,16 +15,21 @@ import { getComments, getPost } from '@/lib/feature/posts/ssr/getPostSSR'
 import { Button } from 'photo-flow-ui-kit'
 import Link from 'next/link'
 import PostModal from '@/lib/feature/posts/ui/post/PostModal'
+import { withLocale, type Locale } from '@/i18n/utils/withLocale'
+import { getServerTranslate } from '@/i18n/utils'
 
 type ProfilePageProps = {
-  params: Promise<{ id: string }>
+  params: Promise<{ lng: Locale; id: string }>
   searchParams: Promise<{ postId: string }>
 }
 
 export default async function ProfilePage({ params, searchParams }: ProfilePageProps) {
   const { postId } = await searchParams
   const postDataQuery = {} as PostData
-  const { id: userId } = await params
+  const { lng, id: userId } = await params
+
+  const t = await getServerTranslate(lng)
+
   try {
     if (postId) {
       postDataQuery.post = await getPost(postId)
@@ -38,6 +43,7 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
     const userPostsData = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts/user/${userId}/0?pageSize=${PAGE_SIZE}`
     )
+
     const userPosts: UserPostsResponse = await userPostsData.json()
     const totalCountPosts = userPosts.totalCount
     return (
@@ -84,11 +90,11 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
     console.log(e)
     return (
       <div className={'flex h-[80vh] flex-col items-center justify-center gap-[45px]'}>
-        <Typography variant={'h1'}>Oops, this page does not exist.</Typography>
+        <Typography variant={'h1'}>{t('common_404_title')}</Typography>
         <Button asChild variant={'secondary'}>
-          <Link href={'/'}>Go to Home page</Link>
+          <Link href={withLocale('/', { lng })}>{t('common_goHome')}</Link>
         </Button>
       </div>
-    ) // переделать! компонент 404
+    )
   }
 }

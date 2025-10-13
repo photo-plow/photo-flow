@@ -19,10 +19,12 @@ export default function ConfirmationPage() {
     const checkCodeValidity = async () => {
       try {
         await confirmEmail({ confirmationCode: code }).unwrap()
+        console.log(1)
         router.push(withLocale('/auth/confirm-email/success'))
       } catch (e) {
         // Обработать ошибки в случае провала ConfirmEmail
         // 400 status - Incorrect input data. Смотреть Swagger
+        console.log(2)
         const err = e as ResponseError
         router.push(withLocale('/auth/confirm-email/expired'))
         console.log('Confirmation error: ', err.data.messages[0].message)

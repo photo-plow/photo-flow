@@ -11,6 +11,8 @@ import { useState } from 'react'
 import { useGetMeQuery } from '@/lib/feature/auth/api/authApi'
 import { Loader } from 'photo-flow-ui-kit'
 import { MyPayments } from '@/lib/feature/subscriptions/ui/myPayments/MyPayments'
+import { useWithLocale } from '@/i18n/hooks'
+import { useTranslation } from 'react-i18next'
 
 const ProfileSettings = () => {
   const router = useRouter()
@@ -19,11 +21,13 @@ const ProfileSettings = () => {
   const success = params.get('success')
   const [isModalOpen, setIsModalOpen] = useState(!!success)
   const { data } = useGetMeQuery()
+  const withLocale = useWithLocale()
+  const { t } = useTranslation()
 
   if (!data) return <Loader />
 
   if (String(profileParams.id) !== String(data.userId)) {
-    router.replace(`/profile/${profileParams.id}`)
+    router.replace(withLocale(`/profile/${profileParams.id}`))
     return null
   }
 
@@ -37,22 +41,22 @@ const ProfileSettings = () => {
       <Tabs defaultValue='General information'>
         <TabsList className='flex w-full'>
           <TabsTrigger value='General information' className='flex-1'>
-            General information
+            {t('profile_profileSettings_tabs_general')}
           </TabsTrigger>
           <TabsTrigger value='Devices' className='flex-1'>
-            Devices
+            {t('profile_profileSettings_tabs_devices')}
           </TabsTrigger>
           <TabsTrigger value='Account Management' className='flex-1'>
-            Account Management
+            {t('profile_profileSettings_tabs_accountManagement')}
           </TabsTrigger>
           <TabsTrigger value='My payments' className='flex-1'>
-            My payments
+            {t('profile_profileSettings_tabs_myPayments')}
           </TabsTrigger>
         </TabsList>
         <TabsContent value='General information'>
           <GeneralInformation />
         </TabsContent>
-        <TabsContent value='Devices'>Devices</TabsContent>
+        <TabsContent value='Devices'>{t('profile_profileSettings_tabs_devices')}</TabsContent>
         <TabsContent value='Account Management'>
           <AccountType />
         </TabsContent>
@@ -69,10 +73,10 @@ const ProfileSettings = () => {
         >
           <div className={'px-6 pt-4.5 pb-9'}>
             <Typography variant={'regular_text_16'} className={'mb-[54px]'}>
-              Payment was successful!
+              {t('profile_profileSettings_modal_success_message')}
             </Typography>
             <Button className={'w-full'} onClick={onCloseModalWindow}>
-              OK
+              {t('common_ok')}
             </Button>
           </div>
         </ModalWindow>
@@ -85,10 +89,10 @@ const ProfileSettings = () => {
         >
           <div className={'px-6 pt-4.5 pb-9'}>
             <Typography variant={'regular_text_16'} className={'mb-[54px]'}>
-              Transaction failed. Please, write to support
+              {t('profile_profileSettings_modal_error_message')}
             </Typography>
             <Button className={'w-full'} onClick={onCloseModalWindow}>
-              Back to payment
+              {t('profile_profileSettings_modal_error_backToPayment')}
             </Button>
           </div>
         </ModalWindow>

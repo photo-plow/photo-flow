@@ -1,10 +1,15 @@
+'use client'
+
 import Image from 'next/image'
 import { Typography } from 'photo-flow-ui-kit'
 import { formatTimeAgo } from '@/utils'
 import { Answer } from '@/lib/feature/posts/api/postsApi.types'
 import DefaultAvatar from '@/../public/defaultAvatar.jpg'
+import { useTranslation } from 'react-i18next'
 
 function PostAnswer({ answer }: { answer: Answer }) {
+  const { t } = useTranslation()
+
   return (
     <div key={answer.id} className={'flex gap-3'}>
       <div className={'h-9 max-w-9'}>
@@ -13,7 +18,7 @@ function PostAnswer({ answer }: { answer: Answer }) {
           height={36}
           src={answer.from.avatars[1].url || DefaultAvatar}
           className={'max-w-9 rounded-full'}
-          alt={'user comment avatar'}
+          alt={t('posts_commenter_imgAlt')}
         />
       </div>
       <div>
@@ -26,7 +31,7 @@ function PostAnswer({ answer }: { answer: Answer }) {
             {formatTimeAgo(answer.createdAt)}
           </Typography>
           <Typography variant={'semi_bold_small_text'} className={'text-light-900'}>
-            Likes: {answer.likeCount}
+            {t('posts_likesLabel', { count: answer.likeCount })}
           </Typography>
         </div>
       </div>

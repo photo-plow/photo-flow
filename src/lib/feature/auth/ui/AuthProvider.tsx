@@ -6,10 +6,12 @@ import { useGetMeQuery } from '@/lib/feature/auth/api/authApi'
 import { useRouter } from 'next/navigation'
 import { AUTH_TOKEN } from '@/constants'
 import { Loader } from 'photo-flow-ui-kit'
+import { useWithLocale } from '@/i18n/hooks'
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
+  const withLocale = useWithLocale()
 
   const [shouldFetch, setShouldFetch] = useState(false)
   const [isCheckingAuth, setIsCheckingAuth] = useState(true)
@@ -36,7 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (error && 'status' in error && error.status === 401) {
       dispatch(setIsAuth({ isAuth: false }))
-      router.replace('/auth/sign-in')
+      router.replace(withLocale('/auth/sign-in'))
     }
   }, [data, error, dispatch, router])
 

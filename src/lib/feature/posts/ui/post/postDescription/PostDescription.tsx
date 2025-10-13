@@ -1,10 +1,15 @@
+'use client'
+
 import Image from 'next/image'
 import { Typography } from 'photo-flow-ui-kit'
 import { formatTimeAgo } from '@/utils'
 import { PostResponse } from '@/lib/feature/posts/api/postsApi.types'
 import DefaultAvatar from '@/../public/defaultAvatar.jpg'
+import { useTranslation } from 'react-i18next'
 
 function PostDescription({ post }: { post: PostResponse }) {
+  const { t } = useTranslation()
+
   return (
     <div className={'border-dark-100 mb-4 flex gap-3 border-b'}>
       <div className={'h-9 max-w-9'}>
@@ -13,7 +18,7 @@ function PostDescription({ post }: { post: PostResponse }) {
           height={36}
           src={post.avatarOwner || DefaultAvatar}
           className={'max-w-9 rounded-full'}
-          alt={'photo of creator'}
+          alt={t('posts_creator_imgAlt')}
         />
       </div>
       <div>
