@@ -17,11 +17,13 @@ import { Select } from 'photo-flow-ui-kit'
 import { Button } from 'photo-flow-ui-kit'
 import { Textarea } from 'photo-flow-ui-kit'
 import { checkAge } from '@/utils/checkAge'
+import { useTranslation } from 'react-i18next'
 
 export const GeneralInformation = () => {
   const { data: profile } = useGetProfileQuery()
   const [updateProfile] = useUpdateProfileMutation()
   const { showAlert } = useAlert()!
+  const { t } = useTranslation()
 
   const {
     register,
@@ -69,17 +71,13 @@ export const GeneralInformation = () => {
         ...data,
       }
 
-      // if (payload.dateOfBirth === null) {
-      //   throw new Error('Date of birth is required')
-      // }
-
       if (!checkAge({ showAlert, birthDate: payload.dateOfBirth })) return
 
       const res = await updateProfile(payload)
       if (!res.data) {
-        showAlert({ message: 'Your settings are saved!', type: 'success' })
+        showAlert({ message: t('profile_settings_saved'), type: 'success' })
       } else {
-        showAlert({ message: 'Error! Server is not available!', type: 'error' })
+        showAlert({ message: t('common_error_serverUnavailable'), type: 'error' })
       }
     } catch (error: unknown) {
       if (typeof error === 'string') {
@@ -87,21 +85,21 @@ export const GeneralInformation = () => {
       } else if (error instanceof Error) {
         showAlert({ message: error.message, type: 'error' })
       } else {
-        showAlert({ message: 'Something went wrong', type: 'error' })
+        showAlert({ message: t('common_somethingWentWrong'), type: 'error' })
       }
     }
   }
 
   return (
     <div className={`flex w-full gap-9`}>
-      {/*Ширину, возможно, поменять в будущем, без хардкода*/}
       <AddProfilePhoto />
       <form onSubmit={handleSubmit(onSubmit)} action='#' className='w-full'>
         <div className='flex w-full flex-col gap-6'>
           <Input
             label={
               <>
-                Username<span className='text-red-500'>*</span>
+                {t('profile_username_label')}
+                <span className='text-red-500'>*</span>
               </>
             }
             {...register('userName')}
@@ -111,7 +109,8 @@ export const GeneralInformation = () => {
           <Input
             label={
               <>
-                First Name<span className='text-red-500'>*</span>
+                {t('profile_firstName_label')}
+                <span className='text-red-500'>*</span>
               </>
             }
             {...register('firstName')}
@@ -121,7 +120,8 @@ export const GeneralInformation = () => {
           <Input
             label={
               <>
-                Last Name<span className='text-red-500'>*</span>
+                {t('profile_lastName_label')}
+                <span className='text-red-500'>*</span>
               </>
             }
             {...register('lastName')}
@@ -139,7 +139,8 @@ export const GeneralInformation = () => {
                 onValueChange={field.onChange}
                 title={
                   <>
-                    Date of birth<span className='text-red-500'>*</span>
+                    {t('profile_dob_label')}
+                    <span className='text-red-500'>*</span>
                   </>
                 }
                 defaultDate={profile?.dateOfBirth}
@@ -158,8 +159,8 @@ export const GeneralInformation = () => {
                       field.onChange(value)
                     }}
                     items={countriesList}
-                    title='Select your country'
-                    placeholder='Country'
+                    title={t('profile_selectCountry_title')}
+                    placeholder={t('profile_country_placeholder')}
                     className='w-[358px]'
                   />
                 )
@@ -174,8 +175,8 @@ export const GeneralInformation = () => {
                     value={field.value}
                     onValueChange={field.onChange}
                     items={cityList[countryFromForm as Country] || []}
-                    title='Select your city'
-                    placeholder='City'
+                    title={t('profile_selectCity_title')}
+                    placeholder={t('profile_city_placeholder')}
                     className='w-[358px]'
                   />
                 )
@@ -185,17 +186,15 @@ export const GeneralInformation = () => {
           <Textarea
             {...register('aboutMe')}
             className={'min-h-[85px] w-full'}
-            placeholder='About Me'
-            textareaLabel='About Me'
+            placeholder={t('profile_about_label')}
+            textareaLabel={t('profile_about_label')}
             maxLength={200}
             error={errors.aboutMe?.message}
           ></Textarea>
           <hr className='text-dark-300 -ml-[232px] flex h-[1px] outline-none' />
-          {/*Хардкод с позиционированием. Изменить позже*/}
           <div className='flex justify-end'>
-            {/*Временное решение. Для позиционирования нижней кнопки. Должна остаться в форме, так как для отсылки. Нужно избавиться от дива*/}
             <Button variant='primary' disabled={!isValid} type='submit'>
-              Save Changes
+              {t('common_saveChanges')}
             </Button>
           </div>
         </div>

@@ -1,12 +1,13 @@
+'use client'
 import React, { RefObject, useState } from 'react'
 import { ModalWindow } from 'photo-flow-ui-kit'
 import ArrowLeftIcon from '@/assets/icons/arrow-back.svg'
 import { Button } from 'photo-flow-ui-kit'
-
 import { Typography } from 'photo-flow-ui-kit'
 import { Textarea } from 'photo-flow-ui-kit'
 import { useAddPostMutation } from '@/lib/feature/posts/api/postsApi'
 import { Slider } from 'photo-flow-ui-kit'
+import { useTranslation } from 'react-i18next'
 
 type PropsType = {
   uploadId: RefObject<string[]>
@@ -17,8 +18,8 @@ export const AddPostDescription = (props: PropsType) => {
   const { imageUrls, uploadId } = props
   const [valueDescription, setValueDescription] = useState<string>('')
   const [isOpen, setIsOpen] = useState(true)
-
   const [addPost] = useAddPostMutation()
+  const { t } = useTranslation()
 
   const sendPublishToServer = async () => {
     const body = {
@@ -36,7 +37,7 @@ export const AddPostDescription = (props: PropsType) => {
   return (
     <ModalWindow
       hiddenCloseButton={true}
-      modalTitle={'Cropping'}
+      modalTitle={t('posts_cropping_title')}
       className={'h-[564px] w-[972px] overflow-hidden text-center'}
       open={isOpen}
       onClose={() => null}
@@ -52,7 +53,7 @@ export const AddPostDescription = (props: PropsType) => {
         variant={'text'}
         onClick={sendPublishToServer}
       >
-        Publish
+        {t('posts_publish')}
       </Button>
       <form className='relative flex h-[504px] w-full'>
         <div className='relative flex h-[504px] w-[490px]'>
@@ -65,7 +66,7 @@ export const AddPostDescription = (props: PropsType) => {
           <div className='mb-[24px] flex items-center gap-[12px]'>
             <span className='h-[36px] w-[36px] rounded-full bg-amber-700'></span>
             <Typography className='text-left' variant={'h2'}>
-              URLProfile
+              {t('posts_userProfile')}
             </Typography>
           </div>
           <Textarea
@@ -73,11 +74,11 @@ export const AddPostDescription = (props: PropsType) => {
             changeValue={setValueDescription}
             value={valueDescription}
             className={'text-regular-16 h-[120px] w-[433px] font-light'}
-            textareaLabel={'Add publication descriptions'}
-            placeholder={'Text-area'}
+            textareaLabel={t('posts_edit_label')}
+            placeholder={t('common_textarea_placeholder')}
           />
           <div className='text-light-900 text-small-12 text-right'>
-            {valueDescription.length}/500
+            {t('common_charsCounter', { current: valueDescription.length, max: 500 })}
           </div>
         </div>
       </form>

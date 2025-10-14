@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react'
 import { ModalWindow } from 'photo-flow-ui-kit'
 import ArrowLeftIcon from '@/assets/icons/arrow-back.svg'
@@ -6,6 +7,7 @@ import IconImg from '@/assets/icons/img.svg'
 import { GalleryPreview } from '@/lib/feature/posts/ui/postCreate/reviewPostPhoto/galleryPreview/GalleryPreview'
 import { NavigationFormType } from '@/lib/feature/posts/ui/postCreate/PostCreate'
 import { Slider } from 'photo-flow-ui-kit'
+import { useTranslation } from 'react-i18next'
 
 type PropsType = {
   setFormNavigation: (value: NavigationFormType) => void
@@ -20,6 +22,7 @@ export const ReviewPostPhoto = (props: PropsType) => {
   const { imageUrls, inputRef, setImageUrls, setFilesImg, sendFilesToServer, setFormNavigation } =
     props
   const [openPreview, setOpenPreview] = useState<boolean>(false)
+  const { t } = useTranslation()
   const resetPreview = () => {
     setFormNavigation('addFiles')
   }
@@ -27,7 +30,7 @@ export const ReviewPostPhoto = (props: PropsType) => {
   return (
     <ModalWindow
       hiddenCloseButton={true}
-      modalTitle={'Cropping'}
+      modalTitle={t('posts_cropping_title')}
       className={'h-[564px] w-[492px] overflow-hidden text-center'}
       open={true}
       onClose={() => null}
@@ -43,7 +46,7 @@ export const ReviewPostPhoto = (props: PropsType) => {
         variant={'text'}
         onClick={sendFilesToServer}
       >
-        Next
+        {t('common_next')}
       </Button>
       <form className='relative flex h-[504px] w-[490px]'>
         <Slider images={imageUrls} data={'uiData'} getId={s => s} getUrl={s => s} />
