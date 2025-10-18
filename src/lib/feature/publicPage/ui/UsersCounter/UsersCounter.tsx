@@ -3,6 +3,7 @@
 import React from 'react'
 import { Typography } from 'photo-flow-ui-kit'
 import { Card } from 'photo-flow-ui-kit'
+import { useTranslation } from 'react-i18next'
 
 type CounterProps = {
   usersCount: number
@@ -10,6 +11,8 @@ type CounterProps = {
 export const UsersCounter = ({ usersCount }: CounterProps) => {
   const digits = String(usersCount)
   const paddedDigits = digits.length < 6 ? String(digits).padStart(6, '0') : digits
+  const { t } = useTranslation()
+
   return (
     <Card
       className={
@@ -17,7 +20,7 @@ export const UsersCounter = ({ usersCount }: CounterProps) => {
         ' h-[72px] w-[996px] px-[24px] py-[12px]'
       }
     >
-      <Typography variant={'bold_text_16'}>Registered users:</Typography>
+      <Typography variant={'bold_text_16'}>{t('public_registeredUsers_label')}</Typography>
 
       <Card
         className={

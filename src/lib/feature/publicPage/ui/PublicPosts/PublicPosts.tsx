@@ -8,6 +8,7 @@ import { POSTS_ON_MAIN_PAGE } from '@/constants'
 import { useGetPublicPostsQuery } from '@/lib/feature/posts/api/postsApi'
 import { UserPostsResponse } from '@/lib/feature/posts/api/postsApi.types'
 import { Loader } from 'photo-flow-ui-kit'
+import { useWithLocale } from '@/i18n/hooks'
 
 type PropsType = {
   initialPosts: UserPostsResponse
@@ -19,6 +20,7 @@ export default function PublicPosts({ initialPosts }: PropsType) {
     pollingInterval: 60000,
   })
   const publicPosts = data ?? initialPosts
+  const withLocale = useWithLocale()
 
   if (isLoading) return <Loader />
   return (
@@ -27,7 +29,7 @@ export default function PublicPosts({ initialPosts }: PropsType) {
         const resultDate = formatTimeAgo(post.createdAt)
         return (
           <div key={post.id}>
-            <Link href={`/profile/${post.ownerId}?postId=${post.id}`}>
+            <Link href={withLocale(`/profile/${post.ownerId}?postId=${post.id}`)}>
               <Image
                 width={240}
                 height={240}

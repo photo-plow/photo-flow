@@ -11,7 +11,6 @@ type PropsType = {
 
 export const CancelSubscription = ({ hasAutoRenewal }: PropsType) => {
   const [renewal, setRenewal] = useState(hasAutoRenewal)
-
   const [cancelSubscription] = useCancelSubscriptionMutation()
   const [renewAutoSubscription] = useRenewAutoRenewalMutation()
 

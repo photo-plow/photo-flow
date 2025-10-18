@@ -1,5 +1,6 @@
 import { initI18n, defaultNS, supportedLngs, type Locale } from '@/i18n/config'
 import TranslationsProvider from '@/i18n/TranslationsProvier'
+import ClientProviders from './ClientProviders.tsx'
 
 export async function generateStaticParams() {
   return supportedLngs.map(lng => ({ lng }))
@@ -27,7 +28,7 @@ export default async function LocaleLayout(props: {
 
   return (
     <TranslationsProvider locale={locale} resources={resources}>
-      {children}
+      <ClientProviders>{children}</ClientProviders>
     </TranslationsProvider>
   )
 }

@@ -5,10 +5,11 @@ import { useRouter } from 'next/navigation'
 import { useAppDispatch } from '@/lib/hooks'
 import { setIsAuth } from '@/lib/appSlice'
 import { AUTH_TOKEN } from '@/constants'
+import { useWithLocale } from '@/i18n/hooks'
 
 export const useLogout = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-
+  const withLocale = useWithLocale()
   const [logout] = useLogoutMutation()
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -18,7 +19,7 @@ export const useLogout = () => {
       await logout().unwrap()
       dispatch(setIsAuth({ isAuth: false }))
       localStorage.removeItem(AUTH_TOKEN)
-      router.push('/auth/sign-in')
+      router.push(withLocale('/auth/sign-in'))
     } catch (error) {
       console.error('logout error', error)
     } finally {

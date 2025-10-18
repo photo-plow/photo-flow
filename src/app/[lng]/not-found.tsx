@@ -1,8 +1,10 @@
 'use client'
 
 import { Button, Typography } from 'photo-flow-ui-kit'
+import { useTranslation } from 'react-i18next'
 
 export default function NotFound() {
+  const { t } = useTranslation()
   return (
     <div
       style={{
@@ -21,9 +23,9 @@ export default function NotFound() {
         transform: 'translateY(-96px)',
       }}
     >
-      <Typography variant='h2'>Упс... Страница не найдена</Typography>
+      <Typography variant='h2'>{t('error_404_title')}</Typography>
 
-      <Button onClick={() => window.location.replace('/')}>Вернуться на главную</Button>
+      <Button onClick={() => window.location.replace('/')}>{t('common_goHome')}</Button>
     </div>
   )
 }

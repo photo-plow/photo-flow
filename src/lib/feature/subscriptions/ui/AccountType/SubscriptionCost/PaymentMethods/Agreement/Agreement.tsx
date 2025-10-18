@@ -1,3 +1,4 @@
+'use client'
 import { Checkbox } from 'photo-flow-ui-kit'
 import { Button } from 'photo-flow-ui-kit'
 import { Typography } from 'photo-flow-ui-kit'
@@ -5,9 +6,13 @@ import { useState } from 'react'
 import { parseSubscription } from '@/lib/feature/subscriptions/utils/parseSubscription'
 import { useCreatePaymentMutation } from '@/lib/feature/subscriptions/api/subscriptionApi'
 import { useParams, useRouter } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
+import { useWithLocale } from '@/i18n/hooks'
 
 export const Agreement = ({ subscriptionCost }: { subscriptionCost: string }) => {
   const [agree, setAgree] = useState(false)
+  const { t } = useTranslation()
+  const withLocale = useWithLocale()
 
   const [createPayment, { isLoading }] = useCreatePaymentMutation()
   const router = useRouter()
@@ -21,7 +26,7 @@ export const Agreement = ({ subscriptionCost }: { subscriptionCost: string }) =>
         typeSubscription: type,
         paymentType: 'STRIPE',
         amount: price,
-        baseUrl: window.location.origin + `/profile/${params.id}/ProfileSettings`,
+        baseUrl: window.location.origin + withLocale(`/profile/${params.id}/ProfileSettings`),
       })
       router.push(res.data!.url)
     } catch (err) {
@@ -35,10 +40,10 @@ export const Agreement = ({ subscriptionCost }: { subscriptionCost: string }) =>
         checked={agree}
         onCheckedChange={() => setAgree(prev => !prev)}
         id={'agreement'}
-        label={'I agree'}
+        label={t('common_iAgree')}
       />
       <Button disabled={!agree || isLoading} onClick={paymentHandler}>
-        <Typography>OK</Typography>
+        <Typography>{t('common_ok')}</Typography>
       </Button>
     </div>
   )

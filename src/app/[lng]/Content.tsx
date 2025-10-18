@@ -14,19 +14,24 @@ import SearchIcon from '@/assets/icons/search.svg'
 import StatisticsIcon from '@/assets/icons/statistics.svg'
 import FavoriteIcon from '@/assets/icons/bookmark-outline.svg'
 import { useLogout } from '@/utils/useLogout/useLogout'
+import { useTranslation } from 'react-i18next'
+import { useWithLocale } from '@/i18n/hooks'
 import { usePathname, useRouter } from 'next/navigation'
 
-type Locale = 'ru' | 'en'
+export type Locale = 'ru' | 'en'
 
 export function Content({ children }: { children: React.ReactNode }) {
   const isAuth = useAppSelector(selectIsAuth)
   const { logoutHandler, setIsModalOpen, isModalOpen } = useLogout()
   const { data } = useGetMeQuery()
-  const router = useRouter()
+  const withLocale = useWithLocale()
+  const { t } = useTranslation()
   const pathname = usePathname() || '/'
-
   const segs = pathname.split('/')
-  const current: Locale = segs[1] === 'en' ? 'en' : 'ru'
+
+  const currentLocale: Locale = segs[1] === 'en' ? 'en' : 'ru'
+
+  const router = useRouter()
 
   const onLanguageChange = (lng: Locale) => {
     document.cookie = `lng=${lng};path=/;max-age=31536000`
@@ -38,47 +43,53 @@ export function Content({ children }: { children: React.ReactNode }) {
 
   const mainMenuItems = [
     {
-      title: 'Feed',
-      url: '/',
+      title: t('nav_feed'),
+      url: withLocale('/'),
       icon: HomeIcon,
     },
     {
-      title: 'Create',
-      url: '#',
+      title: t('nav_create'),
+      url: withLocale('#'), // todo
       icon: CreateIcon,
     },
     {
-      title: 'My Profile',
-      url: `/profile/${data?.userId}`,
+      title: t('nav_myProfile'),
+      url: withLocale(`/profile/${data?.userId}`),
       icon: AccountIcon,
     },
     {
-      title: 'Messenger',
-      url: '#',
+      title: t('nav_messenger'),
+      url: withLocale('#'), // todo
       icon: MessageIcon,
     },
     {
-      title: 'Search',
-      url: '#',
+      title: t('nav_search'),
+      url: withLocale('#'), //todo
       icon: SearchIcon,
     },
   ]
   const secondaryMenuItems = [
     {
-      title: 'Statistics',
-      url: '#',
+      title: t('nav_statistics'),
+      url: withLocale('#'), // todo
       icon: StatisticsIcon,
     },
     {
-      title: 'Favorites',
-      url: '#',
+      title: t('nav_favorites'),
+      url: withLocale('#'), // todo
       icon: FavoriteIcon,
     },
   ]
 
   return (
     <AlertProvider>
-      <Header isAuth={isAuth} language={current} onLanguageChange={onLanguageChange} />
+      <Header
+        isAuth={isAuth}
+        language={currentLocale}
+        onLanguageChange={onLanguageChange}
+        key={currentLocale}
+      />
+
       <div className='max-w-[1920px]'>
         <div className='flex'>
           {isAuth && data && (

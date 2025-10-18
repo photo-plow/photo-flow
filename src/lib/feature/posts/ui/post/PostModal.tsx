@@ -20,6 +20,7 @@ import ConfirmModal from './ConfirmModal/ConfirmModal'
 import { useGetMeQuery } from '@/lib/feature/auth/api/authApi'
 import { EditPostForm } from './EditPostForm/EditPostForm'
 import DefaultAvatar from '@/../public/defaultAvatar.jpg'
+import { useWithLocale } from '@/i18n/hooks'
 
 type PropsType = {
   post: PostResponse
@@ -41,6 +42,7 @@ export default function PostModal({ post, comments }: PropsType) {
 
   const router = useRouter()
   const { id } = useParams()
+  const withLocale = useWithLocale()
 
   // FIX: Не забыть убрать потом
   const { data } = useGetMeQuery()
@@ -52,7 +54,7 @@ export default function PostModal({ post, comments }: PropsType) {
 
   const onCloseHandler = () => {
     if (!isEditMode) {
-      return router.replace(`/profile/${id}`)
+      return router.replace(withLocale(`/profile/${id}`))
     }
 
     if (post.description === textValue) {

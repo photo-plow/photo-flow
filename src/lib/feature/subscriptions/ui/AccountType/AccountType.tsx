@@ -1,3 +1,5 @@
+'use client'
+
 import { Typography } from 'photo-flow-ui-kit'
 import { Card } from 'photo-flow-ui-kit'
 import { Radio } from 'photo-flow-ui-kit'
@@ -6,22 +8,23 @@ import { SubscriptionCost } from '@/lib/feature/subscriptions/ui/AccountType/Sub
 import { CurrentSubscription } from '@/lib/feature/subscriptions/ui/AccountType/currentSubscription/CurrentSubscription'
 import { useGetCurrentSubscriptionQuery } from '@/lib/feature/subscriptions/api/subscriptionApi'
 import { Loader } from 'photo-flow-ui-kit'
+import { useTranslation } from 'react-i18next'
 
 export const AccountType = memo(() => {
+  const { t } = useTranslation()
   const accountTypeOptions = [
-    { title: 'Personal', id: 'personal-id' },
-    { title: 'Business', id: 'business-id' },
+    { title: t('accountType_personal'), id: 'personal-id' },
+    { title: t('accountType_business'), id: 'business-id' },
   ]
 
   const { data, isLoading } = useGetCurrentSubscriptionQuery()
-
   const currentSubscriptions = useMemo(() => data, [data])
 
   const [accountType, setAccountType] = useState<string>('')
 
   useEffect(() => {
     if (!isLoading && data) {
-      setAccountType(data.data.length ? 'Business' : 'Personal')
+      setAccountType(data.data.length ? t('accountType_business') : t('accountType_personal'))
     }
   }, [data, isLoading])
 
@@ -32,7 +35,7 @@ export const AccountType = memo(() => {
     <>
       <CurrentSubscription currentSubscriptions={currentSubscriptions} />
       <Typography variant={'h3'} className={'mb-4.5'}>
-        Account type:
+        {t('accountType_title')}
       </Typography>
       <Card className={'mb-10.5 px-3 py-1.5'}>
         <Radio
@@ -42,7 +45,9 @@ export const AccountType = memo(() => {
           onValueChange={setAccountType}
         />
       </Card>
-      {accountType === 'Business' && <SubscriptionCost hasSubscription={data?.data.length} />}
+      {accountType === t('accountType_business') && (
+        <SubscriptionCost hasSubscription={data?.data.length} />
+      )}
     </>
   )
 })
