@@ -101,6 +101,13 @@ export function Content({ children }: { children: React.ReactNode }) {
               logoutHandlerAction={logoutHandler}
               isModalOpen={isModalOpen}
               setIsModalOpenAction={setIsModalOpen}
+              texts={{
+                logout: t('nav_logout'),
+                modalTitle: t('logout_title'),
+                modalIntro: t('logout_question_intro'),
+                yes: t('common_yes'),
+                no: t('common_no'),
+              }}
             />
           )}
           <main className={`${isAuth ? 'ml-[220px]' : ''} w-full px-6 pt-[96px]`}>{children}</main>

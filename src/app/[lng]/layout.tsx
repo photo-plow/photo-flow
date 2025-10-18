@@ -1,6 +1,6 @@
 import { initI18n, defaultNS, supportedLngs, type Locale } from '@/i18n/config'
 import TranslationsProvider from '@/i18n/TranslationsProvier'
-import ClientProviders from './ClientProviders.tsx'
+import ClientProviders from './ClientProviders'
 
 export async function generateStaticParams() {
   return supportedLngs.map(lng => ({ lng }))

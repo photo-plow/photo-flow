@@ -164,5 +164,8 @@
   "nav_favorites": "Favorites",
   "error_generic_oops": "Oops... Something went wrong",
   "common_goHome": "Go to Home",
-  "error_404_title": "Oops... Page not found"
+  "error_404_title": "Oops... Page not found",
+  "nav_logout": "Log Out",
+  "logout_title": "Log Out",
+  "logout_question_intro": "Are you sure you want to log out of your account"
 }
