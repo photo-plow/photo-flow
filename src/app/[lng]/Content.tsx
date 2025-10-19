@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAppSelector } from '@/lib/hooks'
 import { selectIsAuth } from '@/lib/appSlice'
 import { useGetMeQuery } from '@/lib/feature/auth/api/authApi'
@@ -32,6 +32,16 @@ export function Content({ children }: { children: React.ReactNode }) {
   const currentLocale: Locale = segs[1] === 'en' ? 'en' : 'ru'
 
   const router = useRouter()
+
+  useEffect(() => {
+    if (pathname.split('/').length !== 2) return
+    const lang = pathname.split('/')[1]
+    if (lang === 'ru' || lang === 'en') {
+      router.push(`/${lang}`)
+    } else {
+      router.push('/en')
+    }
+  }, [router])
 
   const onLanguageChange = (lng: Locale) => {
     document.cookie = `lng=${lng};path=/;max-age=31536000`
