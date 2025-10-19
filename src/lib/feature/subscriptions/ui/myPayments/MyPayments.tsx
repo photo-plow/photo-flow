@@ -5,38 +5,32 @@ import { useGetMyPaymentsQuery } from '@/lib/feature/subscriptions/api/subscript
 import { Loader } from 'photo-flow-ui-kit'
 import { formatDateToDotFormat } from '@/utils'
 import { Typography } from 'photo-flow-ui-kit'
+import { useTranslation } from 'react-i18next'
 
-const headers = [
-  'Date of Payments',
-  'End date of subscription',
-  'Price',
-  'Subscription type',
-  'Payment Type',
-]
+const headerKeys = [
+  'payments_header_date',
+  'payments_header_endDate',
+  'payments_header_price',
+  'payments_header_subType',
+  'payments_header_paymentType',
+] as const
 
 const costPayments = {
-  DAY: {
-    amount: 10,
-    typeDescription: '1 day',
-  },
-  WEEKLY: {
-    amount: 50,
-    typeDescription: '7 days',
-  },
-  MONTHLY: {
-    amount: 100,
-    typeDescription: '1 month',
-  },
-}
+  DAY: { amount: 10, typeKey: 'subscription_type_day' },
+  WEEKLY: { amount: 50, typeKey: 'subscription_type_weekly' },
+  MONTHLY: { amount: 100, typeKey: 'subscription_type_monthly' },
+} as const
 
 const paymentsType = {
-  STRIPE: 'Stripe',
-  PAYPAL: 'PayPal',
-  CREDIT_CARD: 'Credit Card',
-}
+  STRIPE: 'payment_type_stripe',
+  PAYPAL: 'payment_type_paypal',
+  CREDIT_CARD: 'payment_type_creditCard',
+} as const
 
 export const MyPayments = () => {
   const { data, isLoading } = useGetMyPaymentsQuery()
+  const { t } = useTranslation()
+
   if (isLoading) {
     return <Loader />
   }
@@ -45,10 +39,10 @@ export const MyPayments = () => {
     return {
       dateOfPayment: formatDateToDotFormat(elem.dateOfPayment),
       endDateOfSubscription: formatDateToDotFormat(elem.endDateOfSubscription),
-      paymentType: paymentsType[elem.paymentType],
+      paymentType: t(paymentsType[elem.paymentType]),
       price: `$${costPayments[elem.subscriptionType].amount}`,
       subscriptionId: elem.subscriptionId,
-      subscriptionType: costPayments[elem.subscriptionType].typeDescription,
+      subscriptionType: t(costPayments[elem.subscriptionType].typeKey),
       userId: elem.userId,
     }
   })
@@ -56,7 +50,7 @@ export const MyPayments = () => {
   if (!data?.length)
     return (
       <Typography variant={'large'} className={'text-center'}>
-        You have no payments
+        {t('payments_empty')}
       </Typography>
     )
 
@@ -64,7 +58,7 @@ export const MyPayments = () => {
     <table className={'w-full'}>
       <thead className={'h-[48px] gap-[72px]'}>
         <tr className={'bg-dark-500 h-[48px] text-left'}>
-          {headers.map((header, index) => (
+          {headerKeys.map((header, index) => (
             <th
               key={index}
               className={twMerge(

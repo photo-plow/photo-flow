@@ -1,8 +1,10 @@
+'use client'
 import { Textarea } from 'photo-flow-ui-kit'
 import { Button } from 'photo-flow-ui-kit'
 import { useUpdatePostMutation } from '../../../api/postsApi'
 import { UpdatePostMutation } from '../../../api/postsApi.types'
 import { twMerge } from 'tailwind-merge'
+import { useTranslation } from 'react-i18next'
 
 type EditPostFormProps = {
   isEditMode: boolean
@@ -20,6 +22,7 @@ export const EditPostForm = ({
   setIsEditMode,
 }: EditPostFormProps) => {
   const [updatePost] = useUpdatePostMutation() as UpdatePostMutation
+  const { t } = useTranslation()
 
   return (
     <form
@@ -37,18 +40,18 @@ export const EditPostForm = ({
       <div className='flex flex-col pl-6'>
         <Textarea
           className={'min-h-[120px] w-[433px]'}
-          textareaLabel='Add publication descriptions'
+          textareaLabel={t('posts_edit_label')}
           value={textValue}
           changeValue={setTextValue}
           maxLength={500}
         ></Textarea>
         <p className='text-light-900 mr-6 ml-auto text-xs leading-[1.33333] font-normal'>
-          {textValue.length}/500
+          {t('common_charsCounter', { current: textValue.length, max: 500 })}
         </p>
       </div>
 
       <Button type='submit' className={'mr-6 mb-6 ml-auto box-content w-[135px]'}>
-        Save Changes
+        {t('posts_edit_save')}
       </Button>
     </form>
   )

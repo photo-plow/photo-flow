@@ -3,6 +3,7 @@ import ClosePicture from '@/assets/icons/close.svg'
 import PlusIcon from '@/assets/icons/plus-circle.svg'
 import Image from 'next/image'
 import { MAX_FILE_SIZE, MAX_FILES } from '@/constants'
+import { useTranslation } from 'react-i18next'
 
 type PropsType = {
   imageUrls: string[]
@@ -13,6 +14,7 @@ type PropsType = {
 
 export const GalleryPreview = (props: PropsType) => {
   const { imageUrls, inputRef, setImageUrls, setFilesImg } = props
+  const { t } = useTranslation()
 
   const addNewFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files ?? [])
@@ -21,12 +23,16 @@ export const GalleryPreview = (props: PropsType) => {
 
     if (validFiles.length < files.length) {
       const oversized = files.filter(file => file.size > MAX_FILE_SIZE)
-      alert('Некоторые файлы превышают 20 МБ:\n' + oversized.map(f => f.name).join(', '))
+      alert(
+        t('posts_error_filesTooLarge', { sizeMB: Math.round(MAX_FILE_SIZE / (1024 * 1024)) }) +
+          '\n' +
+          oversized.map(f => f.name).join(', ')
+      )
       return
     }
 
     if (validFiles.length > MAX_FILES) {
-      alert(`Количество фото не должно превышать ${MAX_FILES}`)
+      alert(t('posts_error_maxFiles', { max: MAX_FILES }))
       return
     }
 
@@ -49,7 +55,7 @@ export const GalleryPreview = (props: PropsType) => {
           <div key={idx} className='relative h-[80px] w-[80px] flex-shrink-0'>
             <Image
               src={url}
-              alt={`Фото ${idx + 1}`}
+              alt={t('posts_gallery_photoAlt', { index: idx + 1 })}
               className='h-[80px] w-[80px] rounded-[2px] object-cover'
               width={80}
               height={80}

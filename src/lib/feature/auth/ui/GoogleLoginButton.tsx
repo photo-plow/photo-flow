@@ -1,12 +1,13 @@
 'use client'
 
 import IconGoogle from '@/assets/icons/google.svg'
+import { withLocale } from '@/i18n/utils'
 
 export const GoogleLoginButton = () => {
   const handleLogin = () => {
     const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
 
-    const redirectUri = `${window.location.origin}/auth/google/callback`
+    const redirectUri = withLocale(`${window.location.origin}/auth/google/callback`)
     const scope = 'openid email profile'
 
     window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&access_type=offline&prompt=consent`

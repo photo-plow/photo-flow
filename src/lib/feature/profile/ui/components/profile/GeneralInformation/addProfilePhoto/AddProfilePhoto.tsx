@@ -6,16 +6,19 @@ import { useState } from 'react'
 import { AddAvatarModal } from '@/lib/feature/profile/ui/components/profile/GeneralInformation/addProfilePhoto/addAvatarModal/AddAvatarModal'
 import { useGetProfileQuery } from '@/lib/feature/profile/api/profileApi'
 import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
 
 export const AddProfilePhoto = () => {
   const [modalIsOpened, setModalIsOpened] = useState<boolean>(false)
   const { data, refetch } = useGetProfileQuery()
+  const { t } = useTranslation()
+
   return (
     <div className='flex w-[196px] flex-col items-center'>
       {data?.avatars[0]?.url ? (
         <Image
           src={data.avatars[0].url}
-          alt={'avatar'}
+          alt={t('profile_avatar_alt')}
           width={192}
           height={192}
           className={'rounded-full'}
@@ -28,7 +31,7 @@ export const AddProfilePhoto = () => {
         variant='outline'
         onClick={() => setModalIsOpened(true)}
       >
-        Select Profile Photo
+        {t('profile_selectPhoto')}
       </Button>
       <AddAvatarModal
         isOpen={modalIsOpened}

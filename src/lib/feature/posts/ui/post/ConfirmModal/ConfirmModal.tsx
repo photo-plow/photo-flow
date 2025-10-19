@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { ModalWindow } from 'photo-flow-ui-kit'
 import { Typography } from 'photo-flow-ui-kit'
@@ -5,6 +7,7 @@ import { Button } from 'photo-flow-ui-kit'
 import { useRouter } from 'next/navigation'
 import { useRemovePostMutation } from '@/lib/feature/posts/api/postsApi'
 import { twMerge } from 'tailwind-merge'
+import { useTranslation } from 'react-i18next'
 
 type PostActionsModalProps = {
   open: boolean
@@ -28,6 +31,7 @@ function ConfirmModal({
   removeEditMode,
 }: PostActionsModalProps) {
   const router = useRouter()
+  const { t } = useTranslation()
 
   const [deletePost] = useRemovePostMutation()
 
@@ -44,7 +48,9 @@ function ConfirmModal({
   }
   return (
     <ModalWindow
-      modalTitle={type === 'delete' ? 'Delete Post' : 'Close Post'}
+      modalTitle={
+        type === 'delete' ? t('post_confirmModal_title_delete') : t('post_confirmModal_title_close')
+      }
       open={open}
       className={twMerge('h-[216px] w-[378px]', className)}
       onClose={onClose}
@@ -68,10 +74,10 @@ function ConfirmModal({
             }}
             className='w-24'
           >
-            Yes
+            {t('common_yes')}
           </Button>
           <Button onClick={onClose} className='w-24'>
-            No
+            {t('common_no')}
           </Button>
         </div>
       </div>

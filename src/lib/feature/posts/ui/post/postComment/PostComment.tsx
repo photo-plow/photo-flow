@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import { Typography } from 'photo-flow-ui-kit'
 import { formatTimeAgo } from '@/utils'
@@ -5,6 +7,7 @@ import { Comment } from '@/lib/feature/posts/api/postsApi.types'
 import { useLazyGetCommentAnswerQuery } from '@/lib/feature/posts/api/postsApi'
 import PostAnswer from '@/lib/feature/posts/ui/post/postComment/postAnswer/PostAnswer'
 import DefaultAvatar from '@/../public/defaultAvatar.jpg'
+import { useTranslation } from 'react-i18next'
 
 type PropsType = {
   postId: number
@@ -12,6 +15,7 @@ type PropsType = {
 }
 
 function PostComment({ postId, comment }: PropsType) {
+  const { t } = useTranslation()
   const [trigger, { data }] = useLazyGetCommentAnswerQuery()
 
   const viewAnswerHandler = (commentId: number) => {
@@ -26,7 +30,7 @@ function PostComment({ postId, comment }: PropsType) {
             height={36}
             src={comment.from.avatars[1].url || DefaultAvatar}
             className={'max-w-9 rounded-full'}
-            alt={'user comment avatar'}
+            alt={t('posts_commenter_imgAlt')}
           />
         </div>
         <div>
@@ -39,7 +43,7 @@ function PostComment({ postId, comment }: PropsType) {
               {formatTimeAgo(comment.createdAt)}
             </Typography>
             <Typography variant={'semi_bold_small_text'} className={'text-light-900'}>
-              Likes: {comment.likeCount}
+              {t('posts_likesLabel', { count: comment.likeCount })}
             </Typography>
           </div>
           <div>
@@ -49,7 +53,7 @@ function PostComment({ postId, comment }: PropsType) {
                 variant={'semi_bold_small_text'}
                 className={'text-light-900 mb-4 block cursor-pointer'}
               >
-                &mdash; View Answers ({comment.answerCount})
+                &mdash; {t('posts_viewAnswers', { count: comment.answerCount })}
               </Typography>
             )}
             {data?.items.map(a => <PostAnswer key={a.id} answer={a} />)}

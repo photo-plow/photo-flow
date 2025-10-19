@@ -9,6 +9,7 @@ import { Button } from 'photo-flow-ui-kit'
 import { MAX_AVATAR_SIZE } from '@/constants'
 import Image from 'next/image'
 import { useUpdateAvatarMutation } from '@/lib/feature/profile/api/profileApi'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
   isOpen: boolean
@@ -22,6 +23,7 @@ export const AddAvatarModal = ({ closeModalAction, isOpen, refetchAvatarImageAct
   const inputRef = useRef<HTMLInputElement | null>(null)
   const fileRef = useRef<File | null>(null)
   const [trigger] = useUpdateAvatarMutation()
+  const { t } = useTranslation()
 
   function handleChangePhoto() {
     if (inputRef.current) inputRef.current.click()
@@ -31,11 +33,13 @@ export const AddAvatarModal = ({ closeModalAction, isOpen, refetchAvatarImageAct
     if (!e.target.files || e.target.files.length === 0) return
     const file = e.target.files[0]
     if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
-      setError('The format of the uploaded photo must be PNG and JPEG')
+      setError(t('profile_addPhoto_formatError'))
       return
     }
     if (file.size > MAX_AVATAR_SIZE) {
-      setError('Photo size must be less that 10MB!')
+      setError(
+        t('profile_addPhoto_sizeError', { sizeMB: Math.round(MAX_AVATAR_SIZE / (1024 * 1024)) })
+      )
       return
     }
     setError(null)
@@ -64,7 +68,7 @@ export const AddAvatarModal = ({ closeModalAction, isOpen, refetchAvatarImageAct
 
   return (
     <ModalWindow
-      modalTitle={'Add a Profile Photo'}
+      modalTitle={t('profile_addPhoto_title')}
       className={twMerge('w-[492px]', inputRef ? 'h-[536px]' : 'h-[564px]')}
       open={isOpen}
       onClose={closeModalHandler}
@@ -77,7 +81,7 @@ export const AddAvatarModal = ({ closeModalAction, isOpen, refetchAvatarImageAct
             }
           >
             <Typography variant={'regular_text_14'}>
-              <span className={'font-bold'}>Error!</span> {error}
+              <span className={'font-bold'}>{t('common_error')}</span> {error}
             </Typography>
           </div>
         )}
@@ -97,7 +101,7 @@ export const AddAvatarModal = ({ closeModalAction, isOpen, refetchAvatarImageAct
                 height={340}
                 width={332}
                 src={avatarImage}
-                alt={'preloadPhoto'}
+                alt={t('profile_addPhoto_previewAlt')}
                 className={'h-full w-full object-cover'}
               />
             </div>
@@ -107,7 +111,7 @@ export const AddAvatarModal = ({ closeModalAction, isOpen, refetchAvatarImageAct
               }
               onClick={saveButtonHandler}
             >
-              Save
+              {t('common_save')}
             </Button>
           </div>
         ) : (
@@ -121,7 +125,7 @@ export const AddAvatarModal = ({ closeModalAction, isOpen, refetchAvatarImageAct
               <DefaultImg className={'h-[48px] w-[48px]'} />
             </div>
             <Button onClick={handleChangePhoto} className={'mt-[60px] h-[36px] w-[219px]'}>
-              Select from computer
+              {t('posts_selectFromComputer')}
               <input
                 ref={inputRef}
                 type='file'

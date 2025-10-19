@@ -1,9 +1,9 @@
+'use client'
 import { AddPostPhoto } from '@/lib/feature/posts/ui/postCreate/addPostPhoto/AddPostPhoto'
 import { useRef, useState } from 'react'
 import { ReviewPostPhoto } from '@/lib/feature/posts/ui/postCreate/reviewPostPhoto/ReviewPostPhoto'
 import { useUploadImagesMutation } from '@/lib/feature/posts/api/postsApi'
 import { AddPostDescription } from '@/lib/feature/posts/ui/postCreate/addPostDescription/AddPostDescription'
-
 export type NavigationFormType = 'addFiles' | 'review' | 'addDescription'
 
 export const PostCreate = () => {
@@ -12,7 +12,6 @@ export const PostCreate = () => {
   const uploadId = useRef<string[]>([])
   const [imageUrls, setImageUrls] = useState<string[]>([])
   const [filesImg, setFilesImg] = useState<File[]>([])
-
   const [uploadImages] = useUploadImagesMutation()
   const sendFilesToServer = async () => {
     const formData = new FormData()

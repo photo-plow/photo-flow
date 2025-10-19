@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import Image from 'next/image'
 import { Typography } from 'photo-flow-ui-kit'
@@ -10,9 +12,11 @@ import { useAppSelector } from '@/lib/hooks'
 import { selectIsAuth } from '@/lib/appSlice'
 import { Button } from 'photo-flow-ui-kit'
 import { Textarea } from 'photo-flow-ui-kit'
+import { useTranslation } from 'react-i18next'
 
 function PostFooter({ post }: { post: PostResponse }) {
   const isAuth = useAppSelector(selectIsAuth)
+  const { t } = useTranslation()
 
   return (
     <footer className={'border-dark-100 absolute bottom-0 w-full border-t pt-3'}>
@@ -35,14 +39,14 @@ function PostFooter({ post }: { post: PostResponse }) {
                   height={24}
                   className={'rounded-full'}
                   src={avatar}
-                  alt={'avatars who likes post'}
+                  alt={t('posts_likers_imgAlt')}
                 />
               </div>
             ))}
           </div>
           <Typography variant={'regular_text_14'} className={'mb-1'}>
             {post.likesCount}
-            <Typography variant={'bold_text_14'}> Like</Typography>
+            <Typography variant={'bold_text_14'}>{t('posts_like')}</Typography>
           </Typography>
         </div>
         <Typography
@@ -59,11 +63,11 @@ function PostFooter({ post }: { post: PostResponse }) {
           }
         >
           <Textarea
-            placeholder={'Add a Comment...'}
+            placeholder={t('posts_addComment_placeholder')}
             className={'text-regular-14 h-6 w-[328px] border-none bg-transparent p-0'}
           />
           <Button variant={'text'} className={'px-3'}>
-            <Typography variant={'h3'}>Publish</Typography>
+            <Typography variant={'h3'}>{t('posts_publish')}</Typography>
           </Button>
         </div>
       )}
