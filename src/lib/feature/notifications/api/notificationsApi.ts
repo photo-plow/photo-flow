@@ -13,7 +13,7 @@ export const notificationsApi = baseApi.injectEndpoints({
     }),
     getNotifications: build.query<
       getNotificationResponse,
-      { cursor?: number; pageSize?: number; isRead?: boolean }
+      { cursor?: number; pageSize?: number; isRead?: boolean; sortBy?: string }
     >({
       query: ({ cursor, pageSize = PAGE_SIZE, isRead }) => {
         const params = new URLSearchParams()

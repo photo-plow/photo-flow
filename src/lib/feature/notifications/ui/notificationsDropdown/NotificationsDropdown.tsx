@@ -3,11 +3,10 @@
 import { twMerge } from 'tailwind-merge'
 import Notifications from '@/assets/icons/Notifications.svg'
 import { memo, useCallback, useEffect, useState } from 'react'
-import { Card } from '@/components/ui/Card/Card'
-import { Typography } from '@/components/ui/typography/Typography'
+
 import { formatTimeAgo } from '@/utils'
 import { Notification } from '@/lib/feature/notifications/api/notificationsApi.types'
-import Loader from '@/components/ui/loader/Loader'
+import { Card, Loader, Typography } from 'photo-flow-ui-kit'
 
 type PropsType = {
   notifications: Notification[]
