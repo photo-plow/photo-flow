@@ -42,7 +42,7 @@ export const useNotifications = () => {
       if (!notification.isRead) {
         setUnreadCount(prev => prev + 1)
       }
-      console.log('WebSocket notification:', notification)
+      // console.log('WebSocket notification:', notification)
 
       const normalized: Notification = {
         id: notification.id,
@@ -80,14 +80,13 @@ export const useNotifications = () => {
         console.error('Ошибка загрузки уведомлений:', e)
         setHasMoreNotifications(false)
       } finally {
-        console.log('все уведомления прочитаны')
+        // console.log('все уведомления прочитаны')
       }
     },
     [getNotifications, isFetching, hasMoreNotifications, cursor]
   )
 
   const markAllRead = useCallback(async () => {
-    // trigger()
     try {
       const unreadIds = notifications.filter(n => !n.isRead).map(n => n.id)
 
@@ -100,7 +99,7 @@ export const useNotifications = () => {
 
       setNotifications(prev => prev.filter(n => !n.isRead))
       setUnreadCount(0)
-      console.log('Уведомления помечены как прочитанные')
+      // console.log('Уведомления помечены как прочитанные')
     } catch (error) {
       console.error('Ошибка при пометке уведомлений как прочитанные:', error)
     }

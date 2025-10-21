@@ -16,7 +16,6 @@ import { useLogout } from '@/utils/useLogout/useLogout'
 import { useTranslation } from 'react-i18next'
 import { useWithLocale } from '@/i18n/hooks'
 import { usePathname, useRouter } from 'next/navigation'
-import { useNotifications } from '@/hooks/useNotifications'
 import { NotificationsDropdown } from '@/lib/feature/notifications/ui/notificationsDropdown/NotificationsDropdown'
 
 export type Locale = 'ru' | 'en'
@@ -31,16 +30,6 @@ export function Content({ children }: { children: React.ReactNode }) {
   const segs = pathname.split('/')
 
   const currentLocale: Locale = segs[1] === 'en' ? 'en' : 'ru'
-
-  const {
-    unreadCount,
-    notifications,
-    markAllRead,
-    fetchNotifications,
-    setObserver,
-    isFetching,
-    hasMoreNotifications,
-  } = useNotifications()
 
   const router = useRouter()
   useEffect(() => {
@@ -103,21 +92,8 @@ export function Content({ children }: { children: React.ReactNode }) {
 
   return (
     <AlertProvider>
-      <Header
-        onLanguageChange={() => onLanguageChange(currentLocale)}
-        language={'en'}
-        isAuth={isAuth}
-        notificationsCounter={notifications.length}
-      >
-        <NotificationsDropdown
-          notifications={notifications}
-          unreadCount={unreadCount}
-          markAllRead={markAllRead}
-          fetchNotifications={fetchNotifications}
-          setObserver={setObserver}
-          isFetching={isFetching}
-          hasMoreNotifications={hasMoreNotifications}
-        />
+      <Header onLanguageChange={onLanguageChange} language={currentLocale} isAuth={isAuth}>
+        <NotificationsDropdown />
       </Header>
 
       <div className='max-w-[1920px]'>
