@@ -95,7 +95,6 @@ export function Content({ children }: { children: React.ReactNode }) {
       <Header onLanguageChange={onLanguageChange} language={currentLocale} isAuth={isAuth}>
         <NotificationsDropdown />
       </Header>
-
       <div className='max-w-[1920px]'>
         <div className='flex'>
           {isAuth && data && (
