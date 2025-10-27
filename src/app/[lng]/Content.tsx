@@ -4,8 +4,7 @@ import React, { useEffect } from 'react'
 import { useAppSelector } from '@/lib/hooks'
 import { selectIsAuth } from '@/lib/appSlice'
 import { useGetMeQuery } from '@/lib/feature/auth/api/authApi'
-import { AlertProvider, Sidebar } from 'photo-flow-ui-kit'
-import { Header } from 'photo-flow-ui-kit'
+import { AlertProvider, Header, Sidebar } from 'photo-flow-ui-kit'
 import HomeIcon from '@/assets/icons/home.svg'
 import CreateIcon from '@/assets/icons/create.svg'
 import AccountIcon from '@/assets/icons/account.svg'
@@ -17,6 +16,7 @@ import { useLogout } from '@/utils/useLogout/useLogout'
 import { useTranslation } from 'react-i18next'
 import { useWithLocale } from '@/i18n/hooks'
 import { usePathname, useRouter } from 'next/navigation'
+import { NotificationsDropdown } from '@/lib/feature/notifications/ui/notificationsDropdown/NotificationsDropdown'
 
 export type Locale = 'ru' | 'en'
 
@@ -32,7 +32,6 @@ export function Content({ children }: { children: React.ReactNode }) {
   const currentLocale: Locale = segs[1] === 'en' ? 'en' : 'ru'
 
   const router = useRouter()
-
   useEffect(() => {
     if (pathname.split('/').length !== 2) return
     const lang = pathname.split('/')[1]
@@ -93,13 +92,9 @@ export function Content({ children }: { children: React.ReactNode }) {
 
   return (
     <AlertProvider>
-      <Header
-        isAuth={isAuth}
-        language={currentLocale}
-        onLanguageChange={onLanguageChange}
-        key={currentLocale}
-      />
-
+      <Header onLanguageChange={onLanguageChange} language={currentLocale} isAuth={isAuth}>
+        <NotificationsDropdown />
+      </Header>
       <div className='max-w-[1920px]'>
         <div className='flex'>
           {isAuth && data && (
